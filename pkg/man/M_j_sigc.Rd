@@ -53,6 +53,11 @@ Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2
 \section{Warning }{
 This function takes several minutes to run if the desired precision
 is \code{digits=2} and even longer for higher precision.
+
+For some data sets, the optimal parameter value \eqn{M=M_J} is very large
+(e.g. of order 9*10^5).
+If this function returns \eqn{M_J}=\code{upper}, then
+the optimal parameter value may be larger than \code{upper}.
 }
 \seealso{
 \code{\link{m_j_sgc}}

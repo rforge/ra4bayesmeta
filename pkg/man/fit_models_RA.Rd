@@ -135,6 +135,13 @@ This function may take several minutes to run if the parameter \code{m_J} and/or
 is not specified,
 especially if the desired precision is \code{digits.J=2} or even \code{digits.J=3}.
 }
+\section{Remark }{
+If \code{fit_models_RA} ends with an error or warning,
+we recommend to check the values of the parameters \code{M_J}, \code{m_J} and \code{M_inf}
+for the benchmark priors.
+The choice of these parameters can be studied by using the functions 
+\code{M_j_sigc}, \code{m_j_sgc} and \code{M_inf_sigc}.
+}
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,
 \code{\link{m_j_sgc}}, \code{\link{M_j_sigc}},
@@ -149,3 +156,4 @@ fit_models_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
+\keyword{htest}

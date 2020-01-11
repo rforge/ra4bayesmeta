@@ -84,8 +84,9 @@ Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2
 data(aa)
 # compute the model fits
 # actual standard half-normal and half-Cauchy heterogeneity priors
-fits <- fit_models_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
-                                            function(t)dhalfcauchy(t, scale=1)))[[1]]
+fits <- fit_models_RA(df=aa, tau.prior=
+                             list(function(t)dhalfnormal(t, scale=1),
+                                  function(t)dhalfcauchy(t, scale=1)))[[1]]
 # benchmark fits under SGC(m_inf), Jeffreys' and SIGC(M_inf) priors
 fits.bm.post <- fits[c(1,5,4)]
 fits.actual <- fits[c(6,7)]

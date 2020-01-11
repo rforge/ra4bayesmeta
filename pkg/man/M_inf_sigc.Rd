@@ -15,7 +15,7 @@ SGC(\eqn{M_{inf}}) prior.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-M_inf_sigc(rlmc, df, alpha=0.5)
+M_inf_sigc(rlmc, df, alpha=0.5, truncation=5*10^6)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,6 +29,11 @@ M_inf_sigc(rlmc, df, alpha=0.5)
 \item{alpha}{
    determines the (1-\code{alpha})-quantile of the SIGC(\eqn{M}) prior,
    which is used as reference threshold. Defaults to 0.5 (i.e. the median).
+%%     ~~Describe \code{x} here~~
+}
+\item{truncation}{
+   upper bound for the parameter value \eqn{M}.
+   Defaults to the empirically determined value 5*10^6.
 %%     ~~Describe \code{x} here~~
 }
 }
@@ -46,6 +51,14 @@ Parameter value \eqn{M=M_{inf}} of the SGC(\eqn{M}) prior. Real number > 1.
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
 Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+}
+\section{Warning }{
+Occasionally, the formula for \eqn{M_{inf}} given in the Supplementary Material of 
+Ott et al. (2020, Section 2.8)
+yields values larger than 5*10^6. This can cause numerical problems in the
+\code{bayesmeta}() function.
+Therefore, we truncate the parameter value at the
+empirically determined threshold 5*10^6 by default.
 }
 \seealso{
 \code{\link{m_inf_sgc}}
