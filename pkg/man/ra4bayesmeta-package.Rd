@@ -103,14 +103,17 @@ American Statistical Association} \bold{83(402)}, 364--373.
 data(aa)
 # posterior reference analysis
 # for standard HN and HC heterogeneity priors
-post_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),                                                                function(t)dhalfcauchy(t, scale=1)))
+post_RA(df=aa, tau.prior=
+               list(function(t)dhalfnormal(t, scale=1),                                                                function(t)dhalfcauchy(t, scale=1)))
 # prior reference analysis                                
-pri_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
-                             function(t)dhalfcauchy(t, scale=1))) 
+pri_RA(df=aa, tau.prior=
+              list(function(t)dhalfnormal(t, scale=1),
+                   function(t)dhalfcauchy(t, scale=1))) 
           
 # plot the marginal posterior for the effect mu
-plot_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
-                              function(t)dhalfcauchy(t, scale=1)),
+plot_RA(df=aa, tau.prior=
+               list(function(t)dhalfnormal(t, scale=1),
+                    function(t)dhalfcauchy(t, scale=1)),
         type="post.mu", xlim=c(-1,1.5), ylim=c(0,2.5),
         legend=TRUE, legend.tau.prior=c("HN(1)", "HC(1)"))   
 }

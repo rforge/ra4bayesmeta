@@ -68,4 +68,4 @@ dsigc(x=c(0.1,0.5,1), M=1.2, C=10)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keword{distribution}
+\keyword{distribution}
