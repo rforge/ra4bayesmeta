@@ -19,11 +19,11 @@ pri_RA_fits(fits.actual, fits.bm)
 \arguments{
 \item{fits.actual}{
     a list of model fits of class bayesmeta, computed with
-    the \code{bayesmeta}() function in the package bayesmeta.
+    the \code{bayesmeta} function in the package bayesmeta.
 }
 \item{fits.bm}{
     a list of model fits of class bayesmeta, computed with
-    the \code{bayesmeta}() function in the package bayesmeta. 
+    the \code{bayesmeta} function in the package bayesmeta. 
     To be used as benchmarks.
 }
 }

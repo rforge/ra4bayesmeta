@@ -2,7 +2,7 @@ Package: ra4bayesmeta
 Type: Package
 Title: Reference analysis for Bayesian meta-analysis 
 Version: 0.1-1
-Date: 2020-01-16
+Date: 2020-01-21
 Author: Manuela Ott [aut, cre], Malgorzata Roos [aut], 
 Maintainer: Manuela Ott <manuela.c.ott@gmail.ch>
 Description: Functionality for performing a principled reference analysis in the Bayesian normal-normal hierarchical model (NNHM) used for Bayesian meta-analysis. Computes a reference posterior, induced by a minimally informative improper reference prior for the between-study (heterogeneity) standard deviation. Determines two additional proper prior benchmarks bounding the impact of the improper reference prior. Includes functions for reference analyses at both the posterior and the prior level, which, given the data, quantify the informativeness of a heterogeneity prior of interest relative to the minimally informative reference prior and the two proper prior benchmarks. The functions operate on data sets which are compatible with the bayesmeta R package on CRAN.

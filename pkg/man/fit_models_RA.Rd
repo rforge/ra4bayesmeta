@@ -12,13 +12,13 @@ parameters in a random-effects meta-analysis (expressed
 as a normal-normal hierarchical model) for 
 each of five benchmark heterogeneity priors and
 the actual heterogeneity prior(s) specified.
-Applies the function \code{bayesmeta}() from the package bayesmeta. 
+Applies the function \code{bayesmeta} from the package bayesmeta. 
 %Also provides functions to evaluate marginal posterior distributions.
 %for computations.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-fit_models_RA(df, tau.prior=list(),
+fit_models_RA(df, tau.prior=list(), compute.J.bm=TRUE,
               m_J=NA, M_J=NA, upper.J=3, digits.J=2,
               m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
               mu.mean=0, mu.sd=4)
@@ -31,7 +31,12 @@ fit_models_RA(df, tau.prior=list(),
 %%     ~~Describe \code{x} here~~
 }
 \item{tau.prior}{
-    list of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta}() function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta}() function for details.
+    list of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta} function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta} function for details.
+}
+\item{compute.J.bm}{
+    logical. Specifies if the parameter values of the two benchmarks priors
+    SGC(\eqn{m_J}) and SIGC(\eqn{M_J}) and the corresponding marginal posteriors should be computed. 
+    Defaults to \code{TRUE}.
 }
 \item{m_J}{
     parameter value \eqn{m=m_J} of the SGC(\eqn{m}) prior,
@@ -96,6 +101,13 @@ Note that "Jeffreys" refers to Jeffreys' reference prior,
 which is improper, but leads to a proper posterior if
 there are at least two studies in the meta-analysis data set.
 
+If the fits induced by the SIGC(\code{M_J}) and SGC(\code{m_J}) benchmarks
+are not needed for the analysis (such as for the posterior reference analysis
+proposed in Ott et al. (2020)),
+specifying \cr
+\code{compute.J.bm=FALSE} may reduce the
+computation time by several minutes.
+
 The default values for \code{mu.mean} and \code{mu.sd}
 are suitable for effects mu on the log odds (ratio) scale.
 %%  ~~ If necessary, more details than the description above ~~
@@ -134,14 +146,19 @@ Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2
 This function may take several minutes to run if the parameter \code{m_J} and/or \code{M_J}
 is not specified,
 especially if the desired precision is \code{digits.J=2} or even \code{digits.J=3}.
-}
-\section{Remark }{
+
 If \code{fit_models_RA} ends with an error or warning,
 we recommend to check the values of the parameters \code{M_J}, \code{m_J} and \code{M_inf}
 for the benchmark priors.
 The choice of these parameters can be studied by using the functions 
 \code{M_j_sigc}, \code{m_j_sgc} and \code{M_inf_sigc}.
+If one of the parameters \code{m_inf}, \code{M_J}, \code{m_J} or \code{M_inf}
+has a value larger than 5*10^6, a warning message will be displayed,
+since such large parameter values may lead to numerical problems
+in the \code{bayesmeta} function.
 }
+%\section{Remark }{
+%}
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,
 \code{\link{m_j_sgc}}, \code{\link{M_j_sigc}},

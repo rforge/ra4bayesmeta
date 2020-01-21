@@ -26,7 +26,7 @@ pri_RA(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
 %%     ~~Describe \code{x} here~~
 }
 \item{tau.prior}{
-    list of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta}() function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta}() function for details.
+    list of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta} function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta} function for details.
 }
 %\item{tau.prior}{
 %    list of functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau.

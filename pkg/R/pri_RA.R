@@ -25,6 +25,21 @@ pri_RA <- function(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
     m_J <- m_j_sgc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
    if(is.na(M_J))
     M_J <- M_j_sigc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
+   
+   # thres <- 5*10^6
+   # 
+   # if(m_inf > thres)
+   #   warning(paste0("m_inf=", round(m_inf,0), 
+   #                  ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+   # if(M_inf > thres)
+   #   warning(paste0("M_inf=", round(M_inf,0), 
+   #                  ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+   # if(m_J > thres)
+   #   warning(paste0("m_J=", round(m_J,0), 
+   #                  ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+   # if(M_J > thres)
+   #   warning(paste0("M_J=", round(M_J,0), 
+   #                  ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
     
     C <- sigma_ref(df)^{-2}
     

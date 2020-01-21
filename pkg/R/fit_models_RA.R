@@ -3,7 +3,7 @@
   
 # fit models for the reference analysis
 # compute fits for the reference analysis using bayesmeta
-fit_models_RA <- function(df, tau.prior=list(),
+fit_models_RA <- function(df, tau.prior=list(), compute.J.bm=TRUE,
                           m_J=NA, M_J=NA, upper.J=3, digits.J=2,
                           m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
                           mu.mean=0, mu.sd=4){
@@ -24,11 +24,28 @@ fit_models_RA <- function(df, tau.prior=list(),
     m_inf <- m_inf_sgc(rlmc=rlmc0)
   if(is.na(M_inf))
     M_inf <- M_inf_sigc(rlmc=rlmc1, df=df)
-
-  if(is.na(m_J))
-    m_J <- m_j_sgc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
-  if(is.na(M_J))
-    M_J <- M_j_sigc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
+  
+  if(compute.J.bm==TRUE){
+    if(is.na(m_J))
+      m_J <- m_j_sgc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
+    if(is.na(M_J))
+      M_J <- M_j_sigc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
+  }
+  
+  thres <- 5*10^6
+  
+  if(m_inf > thres)
+    warning(paste0("m_inf=", round(m_inf,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(M_inf > thres)
+    warning(paste0("M_inf=", round(M_inf,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(!is.na(m_J) && m_J > thres)
+    warning(paste0("m_J=", round(m_J,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(!is.na(M_J) && M_J > thres)
+    warning(paste0("M_J=", round(M_J,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
   
   C <- sigma_ref(df)^{-2}
   
@@ -44,20 +61,28 @@ fit_models_RA <- function(df, tau.prior=list(),
                              tau.prior=function(x){dsgc(x, m=m_inf, C=C)})
                              # tau.prior=function(t){dsgc(t, m=m_inf, C=C)})
   
-  fit.SGC.m_J <- bayesmeta(y=df[,"y"], sigma=df[,"sigma"],
-                           mu.prior.mean=mu.mean, mu.prior.sd=mu.sd,
-                           tau.prior=function(x){dsgc(x, m=m_J, C=C)})
-                            # tau.prior=function(t){dsgc(t, m=m_J, C=C)})
+  if(compute.J.bm==TRUE){
+    fit.SGC.m_J <- bayesmeta(y=df[,"y"], sigma=df[,"sigma"],
+                             mu.prior.mean=mu.mean, mu.prior.sd=mu.sd,
+                             tau.prior=function(x){dsgc(x, m=m_J, C=C)})
+                              # tau.prior=function(t){dsgc(t, m=m_J, C=C)})
+  }else{
+    fit.SGC.m_J <- NA
+  }
   
   fit.SIGC.M_inf <- bayesmeta(y=df[,"y"], sigma=df[,"sigma"],
                               mu.prior.mean=mu.mean, mu.prior.sd=mu.sd,
                               tau.prior=function(x){dsigc(x, M=M_inf, C=C)})
                               # tau.prior=function(t){dsigc(t, M=M_inf, C=C)})
   
-  fit.SIGC.M_J <- bayesmeta(y=df[,"y"], sigma=df[,"sigma"],
-                            mu.prior.mean=mu.mean, mu.prior.sd=mu.sd,
-                            tau.prior=function(x){dsigc(x, M=M_J, C=C)})
-                            # tau.prior=function(t){dsigc(t, M=M_J, C=C)})
+  if(compute.J.bm==TRUE){
+    fit.SIGC.M_J <- bayesmeta(y=df[,"y"], sigma=df[,"sigma"],
+                              mu.prior.mean=mu.mean, mu.prior.sd=mu.sd,
+                              tau.prior=function(x){dsigc(x, M=M_J, C=C)})
+                              # tau.prior=function(t){dsigc(t, M=M_J, C=C)})
+  }else{
+    fit.SIGC.M_J <- NA
+  }
   
   if(length(tau.prior)>0){
     n.act <- length(tau.prior)

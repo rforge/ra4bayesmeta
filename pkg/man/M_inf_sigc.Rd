@@ -56,7 +56,7 @@ Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2
 Occasionally, the formula for \eqn{M_{inf}} given in the Supplementary Material of 
 Ott et al. (2020, Section 2.8)
 yields values larger than 5*10^6. This can cause numerical problems in the
-\code{bayesmeta}() function.
+\code{bayesmeta} function.
 Therefore, we truncate the parameter value at the
 empirically determined threshold 5*10^6 by default.
 }

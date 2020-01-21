@@ -26,6 +26,33 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   # plot of the prior densities for tau (of type=="pri.tau") or marg. posterior densities of mu/tau/theta_new
   # under different priors for tau (including 4 benchmark priors and Jeffreys' prior)
   
+  if(is.na(m_inf))
+    m_inf <- m_inf_sgc(rlmc=rlmc0)
+  if(is.na(M_inf))
+    M_inf <- M_inf_sigc(rlmc=rlmc1, df=df)
+  
+    if(is.na(m_J))
+      m_J <- m_j_sgc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
+    if(is.na(M_J))
+      M_J <- M_j_sigc(df=df, upper=upper.J, digits=digits.J, mu.mean=mu.mean, mu.sd=mu.sd)
+
+  
+  thres <- 5*10^6
+  
+  if(m_inf > thres)
+    warning(paste0("m_inf=", round(m_inf,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(M_inf > thres)
+    warning(paste0("M_inf=", round(M_inf,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(m_J > thres)
+    warning(paste0("m_J=", round(m_J,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(M_J > thres)
+    warning(paste0("M_J=", round(M_J,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  
+  
   fits <- fit_models_RA(df=df, tau.prior=tau.prior,
                         m_J=m_J, M_J=M_J, upper.J=upper.J, digits.J=digits.J,
                         m_inf=m_inf, M_inf=M_inf, rlmc0=rlmc0, rlmc1=rlmc1,

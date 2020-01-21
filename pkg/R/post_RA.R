@@ -1,16 +1,30 @@
 
 post_RA <- function(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
-                       m_J=NA, M_J=NA, upper.J=3, digits.J=2,
                        m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
                        mu.mean=0, mu.sd=4){
   
+  if(is.na(m_inf))
+    m_inf <- m_inf_sgc(rlmc=rlmc0)
+  if(is.na(M_inf))
+    M_inf <- M_inf_sigc(rlmc=rlmc1, df=df)
   
-  res.fit <- fit_models_RA(df=df, tau.prior=tau.prior,
-                        m_J=m_J, M_J=M_J, upper.J=upper.J, digits.J=digits.J,
-                        m_inf=m_inf, M_inf=M_inf, rlmc0=rlmc0, rlmc1=rlmc1,
-                        mu.mean=mu.mean, mu.sd=mu.sd)
+  
+  thres <- 5*10^6
+  
+  if(m_inf > thres)
+    warning(paste0("m_inf=", round(m_inf,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  if(M_inf > thres)
+    warning(paste0("M_inf=", round(M_inf,0), 
+                   ">5e+06. This may cause numerical problems in the bayesmeta() function.", sep=""))
+  
+  
+  res.fit <- fit_models_RA(df=df, tau.prior=tau.prior, compute.J.bm=FALSE,
+                           m_J=NA, M_J=NA, upper.J=3, digits.J=1,
+                           m_inf=m_inf, M_inf=M_inf, rlmc0=rlmc0, rlmc1=rlmc1,
+                           mu.mean=mu.mean, mu.sd=mu.sd)
   fits <- res.fit[[1]]
-  par <- res.fit[[2]]
+  par <- res.fit[[2]][c(1,4,5)]
   
   fits.bm <- fits[c("fit.SGC.m_inf", "fit.j", "fit.SIGC.M_inf")]
   n.act <- length(tau.prior)

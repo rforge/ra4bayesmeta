@@ -31,7 +31,7 @@ plot_RA(df, tau.prior=list(), type="pri.tau", xlim, ylim,
 %%     ~~Describe \code{x} here~~
 }
 \item{tau.prior}{
-    list (maximum length 5) of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta}() function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta}() function for details.
+    list (maximum length 5) of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta} function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta} function for details.
 }
 %\item{tau.prior}{
 %    list of functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau 
@@ -97,7 +97,7 @@ such that the median relative latent model complexity (RLMC) is close to 1.
 \item{pos.legend}{
     a character string specifing the position of the legend in the plot. 
     Options are all the keywords accepted by
-    the \code{legend}() function in the graphics package, i.e. 
+    the \code{legend} function in the graphics package, i.e. 
     \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} and \code{"center"}.
 }
 \item{legend.tau.prior}{
@@ -128,6 +128,11 @@ there are at least two studies in the meta-analysis data set.
 
 The default values for \code{mu.mean} and \code{mu.sd}
 are suitable for effects mu on the log odds (ratio) scale.
+
+If you wish to adapt the colors, line types or line widths of the plotted densities,
+we suggest to compute the models fits first by using the function \code{fit_models_RA}
+and then to apply the more flexible function \code{plot_RA_fits}
+operating on model fits of class \code{bayesmeta}.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \references{
@@ -139,6 +144,11 @@ Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2
 This function may take several minutes to run if the parameter \code{m_J} and/or \code{M_J}
 is not specified,
 especially if the desired precision is \code{digits.J=2} or even \code{digits.J=3}.
+
+A warning message will be displayed if one of the parameters \code{m_inf}, \code{M_J}, \code{m_J} or \code{M_inf}
+has a value larger than 5*10^6, since this may lead to numerical problems
+in the \code{bayesmeta} function
+used for computation of the marginal posteriors.
 }
 \seealso{
 \code{\link{fit_models_RA}}, \code{\link{plot_RA_fits}}

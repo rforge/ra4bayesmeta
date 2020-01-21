@@ -19,17 +19,22 @@ All bayesmeta fits should be based on the same data set.
 \usage{
 plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
              legend=FALSE, pos.legend="topright", 
-             legend.tau.prior=c(), bty="o")
+             legend.tau.prior=c(), bty="o",
+             col.actual=c("red", "lightpink3", "darkgreen", "green", 
+                          "violetred"), 
+             col.bm=c("cyan","black","blue","darkgray","dogerblue"), 
+             lty.actual=rep(2, times=5), lty.bm=rep(1, times=5),
+             lwd.actual=rep(2, times=5) , lwd.bm=rep(2, times=5))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 \item{fits.actual}{
     a list of model fits (max. 5 fits) of class bayesmeta, computed with
-    the \code{bayesmeta}() function in the package bayesmeta.
+    the \code{bayesmeta} function in the package bayesmeta.
 }
 \item{fits.bm}{
     a list of model fits (max. 5 fits) of class bayesmeta, computed with
-    the \code{bayesmeta}() function in the package bayesmeta. 
+    the \code{bayesmeta} function in the package bayesmeta. 
     To be used as benchmarks.
 }
 \item{type}{
@@ -50,7 +55,7 @@ plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
 \item{pos.legend}{
     a character string specifing the position of the legend in the plot. 
     Options are all the keywords accepted by
-    the \code{legend}() function in the graphics package, i.e. 
+    the \code{legend} function in the graphics package, i.e. 
     \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} and \code{"center"}.
 }
 \item{legend.tau.prior}{
@@ -64,6 +69,46 @@ plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
 \item{bty}{
     the type of box to be drawn around the legend. The allowed values are "o" (the default) and "n".
 }
+\item{col.actual}{
+    vector of color specifications for the lines representing the actual fits in
+    \code{fits.actual}, in the same order as in that list.
+    Vector of minimum length \code{length(fits.actual)}.
+}
+\item{col.bm}{
+    vector of color specifications for the lines representing the benchmark fits in
+    \code{fits.bm}, in the same order as in that list.
+    Vector of minimum length \code{length(fits.bm)}.
+}
+\item{lty.actual}{
+    vector of line type specifications for the lines representing the actual fits in
+    \code{fits.actual}, in the same order as in that list.
+    Vector of minimum length \code{length(fits.actual)}.
+}
+\item{lty.bm}{
+    vector of line type specifications for the lines representing the benchmark fits in
+    \code{fits.bm}, in the same order as in that list.
+    Vector of minimum length \code{length(fits.bm)}.
+}  
+  \item{lwd.actual}{
+    numeric vector specifying the width of the lines representing the actual fits in
+    \code{fits.actual}, in the same order as in that list.
+    Vector of minimum length \code{length(fits.actual)}.
+}
+\item{lwd.bm}{
+    numeric vector specifying the width of the lines representing the benchmark fits in
+    \code{fits.bm}, in the same order as in that list.
+    Vector of minimum length \code{length(fits.bm)}.
+}
+%\item{lty}{
+%    line types of the lines representing the different fits specified in
+%    \code{c(fits.actual, fits.bm)}, in the same order as in that list.
+%    Vector of length \code{length(fits.actual) + length(fits.bm)}.
+%}
+%\item{lwd}{
+%    line widths of the lines representing the different fits specified in
+%    \code{c(fits.actual, fits.bm)}, in the same order as in that list.
+%    Vector of length \code{length(fits.actual) + length(fits.bm)}.
+%}
 }
 \details{
 Suggestions for prior and posterior benchmarks are provided
