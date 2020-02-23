@@ -2,10 +2,14 @@
 # plot prior for tau and marginal posteriors for mu, tau, theta_new
 plot_RA_fits <- function(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
                          legend=FALSE, pos.legend="topright", legend.tau.prior=c(), bty="o",
-                         col.actual=c("red", "lightpink3", "darkgreen", "green", "violetred"), 
-                         col.bm=c("cyan","black","blue","darkgray","dogerblue"), 
-                         lty.actual=rep(2, times=5), lty.bm=rep(1, times=5),
-                         lwd.actual=rep(2, times=5) , lwd.bm=rep(2, times=5)){
+                         col.actual=c("red","lightpink3","darkgreen","green", 
+                                      "violetred")[1:length(fits.actual)], 
+                         col.bm=c("cyan","black","blue","darkgray",
+                                  "dogerblue")[1:length(fits.bm)], 
+                         lty.actual=rep(2, times=length(col.actual)), 
+                         lty.bm=rep(1, times=length(col.bm)),
+                         lwd.actual=rep(2, times=length(col.actual)) , 
+                         lwd.bm=rep(2, times=length(col.bm))){
   # inputs:
   # fits: list of 6, 7, 8 or 9 (or 5 if no additional actual prior for tau is specified) bayesmeta fits
   # order: list(fit.SGC.m_inf, fit.SIGC.M_J, fit.SGC.m_J, fit.SIGC.M_inf, 
@@ -27,7 +31,7 @@ plot_RA_fits <- function(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
   n <- length(fits)
   y <- list()
   if(type=="pri.tau"){
-    x <- c(seq(from=0, to=0.2, length=1000), seq(from=0.2, to=5, length=5000))
+    x <- c(seq(from=0, to=0.2, length=1000), seq(from=0.2, to=xlim[2], length=5000))
     xlab <- expression("heterogeneity "*tau)
     ylab <- "prior density"
     
@@ -41,7 +45,7 @@ plot_RA_fits <- function(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
   }
   
   if(type=="post.mu"){
-    x <- seq(from=-10, to=10, length=2000)
+    x <- seq(from=xlim[1], to=xlim[2], length=2000)
     xlab <- expression("effect "*mu)
     ylab <- "posterior density"
     
@@ -55,7 +59,7 @@ plot_RA_fits <- function(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
   }
   
   if(type=="post.tau"){
-    x <- c(seq(from=0, to=0.2, length=4000), seq(from=0.2, to=5, length=5000))
+    x <- c(seq(from=0, to=0.2, length=4000), seq(from=0.2, to=xlim[2], length=5000))
     xlab <- expression("heterogeneity "*tau)
     ylab <- "posterior density"
     
@@ -69,7 +73,7 @@ plot_RA_fits <- function(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
   }
   
   if(type=="post.theta.new"){
-    x <- seq(from=-10, to=10, length=2000)
+    x <- seq(from=xlim[1], to=xlim[2], length=2000)
     xlab <- expression("effect "*theta[new])
     ylab <- "posterior density"
     
@@ -86,32 +90,21 @@ plot_RA_fits <- function(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
   n.act <- length(fits.actual)
   # lwd <- 2
   
-   ind.bm <- 1:n.bm
-   ind.act <- (n.bm+1):(n.bm+n.act)
-   ind <- c(ind.bm, ind.act)
-  # mycol <- c(5,1,"blue","darkgray","orange","red", "lightpink3", "darkgreen", "green", "violetred")
-  # # mycol <- c(5,1,"blue","darkgray","orange","red", "lightpink3", "magenta4", "green")
-  # # mycol <- c(5,1,"blue","darkgray","orange","red", "lightpink3", "magenta4", "darkgoldenrod")
-  # # mycol <- c(5,1,"blue","darkgray","orange","red", "firebrick", "green")
-  # mylty <- c(rep(1, times=5), rep(2, times=5))
-  # 
-  # mycol2 <- c(5,1,"blue","darkgray","orange","red", "lightpink3", "darkgreen", "green", "violetred")[ind]
-  # # mycol <- c(5,1,"blue","darkgray","orange","red", "lightpink3", "magenta4", "green")
-  # # mycol <- c(5,1,"blue","darkgray","orange","red", "lightpink3", "magenta4", "darkgoldenrod")
-  # # mycol <- c(5,1,"blue","darkgray","orange","red", "firebrick", "green")
-  # mylty2 <- c(rep(1, times=5), rep(2, times=5))[ind]
-  # if(is.na(ylim[1]) || is.na(ylim[2]))
-  #   plot(x, y[[2]], type="n", xlab=xlab, ylab=ylab, xlim=xlim)
-  # else
+  ind.bm <- 1:n.bm
+  ind.act <- (n.bm+1):(n.bm+n.act)
+  ind <- c(ind.bm, ind.act)
+  
   plot(x, y[[2]], type="n", xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim)
   
+  # plot fits under the actual priors
+  for(i in 1:n.act){
+    lines(x, y[[n.bm+i]] , type="l", lty=lty.actual[i], lwd=lwd.actual[i], col=col.actual[i])
+  }
   # plot fits under the benchmark priors
   for(i in 1:n.bm){
     lines(x, y[[i]] , type="l", lty=lty.bm[i], lwd=lwd.bm[i], col=col.bm[i])
   }
-  for(i in 1:n.act){
-    lines(x, y[[n.bm+i]] , type="l", lty=lty.actual[i], lwd=lwd.actual[i], col=col.actual[i])
-  }
+  
   
   # for(i in 1:n){
   #   lines(x, y[[i]] , type="l", lty=mylty2[i], lwd=lwd, col=mycol2[i])

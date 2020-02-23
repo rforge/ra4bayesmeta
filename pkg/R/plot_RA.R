@@ -64,7 +64,7 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   n <- length(fits)
   y <- list()
   if(type=="pri.tau"){
-    x <- c(seq(from=0, to=0.2, length=1000), seq(from=0.2, to=5, length=5000))
+    x <- c(seq(from=0, to=0.2, length=1000), seq(from=0.2, to=xlim[2], length=5000))
     xlab <- expression("heterogeneity "*tau)
     ylab <- "prior density"
     
@@ -78,7 +78,7 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   }
   
   if(type=="post.mu"){
-    x <- seq(from=-10, to=10, length=2000)
+    x <- seq(from=xlim[1], to=xlim[2], length=2000)
     xlab <- expression("effect "*mu)
     ylab <- "posterior density"
     
@@ -92,7 +92,7 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   }
   
   if(type=="post.tau"){
-    x <- c(seq(from=0, to=0.2, length=4000), seq(from=0.2, to=5, length=5000))
+    x <- c(seq(from=0, to=0.2, length=4000), seq(from=0.2, to=xlim[2], length=5000))
     xlab <- expression("heterogeneity "*tau)
     ylab <- "posterior density"
     
@@ -106,7 +106,7 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   }
   
   if(type=="post.theta.new"){
-    x <- seq(from=-10, to=10, length=2000)
+    x <- seq(from=xlim[1], to=xlim[2], length=2000)
     xlab <- expression("effect "*theta[new])
     ylab <- "posterior density"
     
@@ -129,33 +129,23 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   # if(is.na(ylim[1]) || is.na(ylim[2]))
   #   plot(x, y[[2]], type="n", xlab=xlab, ylab=ylab, xlim=xlim)
   # else
-    plot(x, y[[2]], type="n", xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim)
+  plot(x, y[[2]], type="n", xlab=xlab, ylab=ylab, xlim=xlim, ylim=ylim)
   
-  # plot fits under the 4 benchmark priors
-  for(i in 1:4){
-    lines(x, y[[i]] , type="l", lty=mylty[i], lwd=lwd, col=mycol[i])
-  }
-  # add fit under Jeffreys prior except for prior plot
-  if(type!="pri.tau"){
-    lines(x, y[[5]] , type="l", lty=mylty[5], lwd=lwd, col=mycol[5])
-  }
+  
   # add fits under specified prior(s) for tau if available
   if(n>5){
     for(i in 6:n)
       lines(x, y[[i]], type="l", lty=mylty[i], lwd=lwd, col=mycol[i])
   }
-  # if(length(y)>=6){
-  #   lines(x, y[[6]], type="l", lty=mylty[6], lwd=lwd, col=mycol[6])
-  # }
-  # if(length(y)>=7){
-  #   lines(x, y[[7]], type="l", lty=mylty[7], lwd=lwd, col=mycol[7])
-  # }
-  # if(length(y)>=8){
-  #   lines(x, y[[8]], type="l", lty=mylty[8], lwd=lwd, col=mycol[8])
-  # }
-  # if(length(y)>=9){
-  #   lines(x, y[[9]], type="l", lty=mylty[9], lwd=lwd, col=mycol[9])
-  # }
+  # plot fits under the 4 benchmark priors
+  for(i in 1:4){
+      lines(x, y[[i]] , type="l", lty=mylty[i], lwd=lwd, col=mycol[i])
+  }
+  # add fit under Jeffreys prior except for prior plot
+  if(type!="pri.tau"){
+      lines(x, y[[5]] , type="l", lty=mylty[5], lwd=lwd, col=mycol[5])
+  }
+    
   
   # add sigma_i values to plot of prior for tau
   if(type=="pri.tau"){
@@ -169,8 +159,8 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
   # add a legend if legend==TRUE
   if(legend==TRUE && type=="pri.tau"){
     if(length(legend.tau.prior)==0)
-      legend(pos.legend, c(expression(SCG(m[infinity])), expression(SIGC(M[J])), 
-                           expression(SGC(m[J])), expression(SICG(M[infinity]))),
+      legend(pos.legend, c(expression(SGC(m[infinity])), expression(SIGC(M[J])), 
+                           expression(SGC(m[J])), expression(SIGC(M[infinity]))),
              col=mycol[1:4], lwd=2, lty=mylty[1:4], bg="white", bty=bty,
              cex=cex.legend)
     
@@ -179,38 +169,18 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
       ind.act <- 6:n
       ind <- c(ind.act, 1:4)
       
-      legend(pos.legend, c(legend.tau.prior,  expression(SCG(m[infinity])), expression(SIGC(M[J])), 
-                           expression(SGC(m[J])), expression(SICG(M[infinity]))),
+      legend(pos.legend, c(legend.tau.prior,  expression(SGC(m[infinity])), expression(SIGC(M[J])), 
+                           expression(SGC(m[J])), expression(SIGC(M[infinity]))),
              col=mycol[ind], lwd=2, lty=mylty[ind], bg="white", bty=bty,
              cex=cex.legend)
       
-      # if(n==6)
-      #   legend(pos.legend, c(legend.tau.prior,  expression(SCG(m[infinity])), expression(SIGC(M[J])), 
-      #                        expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(6,1:4)], lwd=2, lty=mylty[c(6,1:4)], bg="white",
-      #          cex=cex.legend)
-      # if(n==7)
-      #   legend(pos.legend, c(legend.tau.prior,  expression(SCG(m[infinity])), expression(SIGC(M[J])), 
-      #                        expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(7,6,1:4)], lwd=2, lty=mylty[c(7,6,1:4)], bg="white",
-      #          cex=cex.legend)
-      # if(n==8)
-      #   legend(pos.legend, c(legend.tau.prior,  expression(SCG(m[infinity])), expression(SIGC(M[J])), 
-      #                        expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(8,7,6,1:4)], lwd=2, lty=mylty[c(8,7,6,1:4)], bg="white", 
-      #          cex=cex.legend)
-      # if(n==9)
-      #   legend(pos.legend, c(legend.tau.prior,  expression(SCG(m[infinity])), expression(SIGC(M[J])), 
-      #                        expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(9,8,7,6,1:4)], lwd=2, lty=mylty[c(9,8,7,6,1:4)], bg="white", 
-      #          cex=cex.legend)
     }
   }
   
   if(legend==TRUE && type!="pri.tau"){
     if(length(legend.tau.prior)==0)
-      legend(pos.legend, c(expression(SCG(m[infinity])), expression(SIGC(M[J])),
-                           "Jeffreys", expression(SGC(m[J])), expression(SICG(M[infinity]))),
+      legend(pos.legend, c(expression(SGC(m[infinity])), expression(SIGC(M[J])),
+                           "Jeffreys", expression(SGC(m[J])), expression(SIGC(M[infinity]))),
              col=mycol[c(1:2,5,3:4)], lwd=2, lty=mylty[c(1:2,5,3:4)], bg="white", bty=bty,
              cex=cex.legend)
     
@@ -219,31 +189,11 @@ plot_RA <- function(df, tau.prior=list(), type="pri.tau", xlim, ylim,
       ind.act <- 6:n
       ind <- c(ind.act, 1:2,5,3:4)
       
-      legend(pos.legend, c(legend.tau.prior, expression(SCG(m[infinity])), expression(SIGC(M[J])),
-                           "Jeffreys", expression(SGC(m[J])), expression(SICG(M[infinity]))),
+      legend(pos.legend, c(legend.tau.prior, expression(SGC(m[infinity])), expression(SIGC(M[J])),
+                           "Jeffreys", expression(SGC(m[J])), expression(SIGC(M[infinity]))),
              col=mycol[ind], lwd=2, lty=mylty[ind], bg="white", bty=bty,
              cex=cex.legend)
       
-      # if(n==6)
-      #   legend(pos.legend, c(legend.tau.prior, expression(SCG(m[infinity])), expression(SIGC(M[J])),
-      #                        "Jeffreys", expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(6,1:2,5,3:4)], lwd=2, lty=mylty[c(6,1:2,5,3:4)], bg="white",
-      #          cex=cex.legend)
-      # if(n==7)
-      #   legend(pos.legend, c(legend.tau.prior, expression(SCG(m[infinity])), expression(SIGC(M[J])),
-      #                        "Jeffreys", expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(7,6,1:2,5,3:4)], lwd=2, lty=mylty[c(7,6,1:2,5,3:4)], bg="white",
-      #          cex=cex.legend)
-      # if(n==8)
-      #   legend(pos.legend, c(legend.tau.prior, expression(SCG(m[infinity])), expression(SIGC(M[J])),
-      #                        "Jeffreys", expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(8,7,6,1:2,5,3:4)], lwd=2, lty=mylty[c(8,7,6,1:2,5,3:4)], bg="white",
-      #          cex=cex.legend)
-      # if(n==9)
-      #   legend(pos.legend, c(legend.tau.prior, expression(SCG(m[infinity])), expression(SIGC(M[J])),
-      #                        "Jeffreys", expression(SGC(m[J])), expression(SICG(M[infinity]))),
-      #          col=mycol[c(9,8,7,6,1:2,5,3:4)], lwd=2, lty=mylty[c(9,8,7,6,1:2,5,3:4)], bg="white",
-      #          cex=cex.legend)
     }
   }
 }

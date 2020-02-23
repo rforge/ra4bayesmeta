@@ -20,11 +20,14 @@ All bayesmeta fits should be based on the same data set.
 plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
              legend=FALSE, pos.legend="topright", 
              legend.tau.prior=c(), bty="o",
-             col.actual=c("red", "lightpink3", "darkgreen", "green", 
-                          "violetred"), 
-             col.bm=c("cyan","black","blue","darkgray","dogerblue"), 
-             lty.actual=rep(2, times=5), lty.bm=rep(1, times=5),
-             lwd.actual=rep(2, times=5) , lwd.bm=rep(2, times=5))
+             col.actual=c("red","lightpink3","darkgreen","green", 
+                          "violetred")[1:length(fits.actual)], 
+             col.bm=c("cyan","black","blue","darkgray",
+                      "dogerblue")[1:length(fits.bm)], 
+             lty.actual=rep(2, times=length(col.actual)), 
+             lty.bm=rep(1, times=length(col.bm)),
+             lwd.actual=rep(2, times=length(col.actual)), 
+             lwd.bm=rep(2, times=length(col.bm)))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -143,17 +146,17 @@ plot_RA_fits(fits.actual=fits.actual, fits.bm=fits.bm.pri,
              type="pri.tau", xlim=c(0,2), ylim=c(0,3), 
              legend=TRUE,
              legend.tau.prior=c("HN(1)", "HC(1)", 
-              expression(SCG(m[infinity])), expression(SIGC(M[J])), 
+              expression(SGC(m[infinity])), expression(SIGC(M[J])), 
               expression(SGC(m[J])), 
-              expression(SICG(M[infinity]))))
+              expression(SIGC(M[infinity]))))
           
 # marginal posterior for the effect mu
 plot_RA_fits(fits.actual=fits.actual, fits.bm=fits.bm.post, 
              type="post.mu", xlim=c(-1.5,2), ylim=c(0,3),
              legend=TRUE,
              legend.tau.prior=c("HN(1)", "HC(1)",
-              expression(SCG(m[infinity])), "Jeffreys", 
-              expression(SICG(M[infinity]))))        
+              expression(SGC(m[infinity])), "Jeffreys", 
+              expression(SIGC(M[infinity]))))        
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
