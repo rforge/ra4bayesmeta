@@ -1,22 +1,22 @@
-\name{pri_RA}
-\alias{pri_RA}
+\name{pri_RA_5bm}
+\alias{pri_RA_5bm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Prior reference analysis based on a data frame
+Prior reference analysis based on a data frame using 5 benchmarks
 %%  ~~function to do ... ~~
 }
 \description{
 Computes a table of Hellinger distance estimates between the
 actual heterogeneity prior(s) specified and
 four benchmark heterogeneity priors
-proposed in Ott et al. (2020).
+proposed in the Supplementary Material of Ott et al. (2020).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-pri_RA(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
-       m_J=NA, M_J=NA, upper.J=3, digits.J=2,
-       m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
-       mu.mean=0, mu.sd=4)
+pri_RA_5bm(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
+           m_J=NA, M_J=NA, upper.J=3, digits.J=2,
+           m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
+           mu.mean=0, mu.sd=4)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -81,9 +81,9 @@ such that the median relative latent model complexity (RLMC) is close to 1.
 }
 }
 \details{
-The four proper heterogeneity benchmark priors used are
-introduced in Ott et al. (2020, Sections 2.3.2, 2.5 and 2.7),
-where they are denoted by 
+The methodology for a prior reference analysis and the four proper heterogeneity benchmark priors used are
+introduced in the Supplementary Material of Ott et al. (2020, Sections 2.5 and 2.6).
+There, these four benchmark priors are denoted by 
 SGC(\code{m_J}), SIGC(\code{M_J}), SGC(\code{m_inf}) and SIGC(\code{M_inf}).
 %%  ~~ If necessary, more details than the description above ~~
 }
@@ -117,9 +117,9 @@ as in that list. Thus, the row names are:
 \item{pri_act_n }{ nth (last) actual prior in \code{tau.prior}}
 }
 \references{
-Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
-informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
 }
 \section{Warning }{
 This function may take several minutes to run if the parameter \code{m_J} and/or \code{M_J}
@@ -127,15 +127,15 @@ is not specified,
 especially if the desired precision is \code{digits.J=2} or even \code{digits.J=3}.
 }
 \seealso{
-\code{\link{post_RA}},
+\code{\link{post_RA_3bm}},
 \code{\link{pri_RA_fits}}
 }
 \examples{
 # for aurigular acupuncture (AA) data set with one
 # actual half-normal and the "DuMouchel" heterogeneity prior
 data(aa)
-pri_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
-                             "DuMouchel"))
+pri_RA_5bm(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
+                                 "DuMouchel"))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

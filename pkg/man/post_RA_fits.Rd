@@ -29,9 +29,10 @@ post_RA_fits(fits.actual, fits.bm)
 }
 }
 \details{
-Suggestions for posterior benchmarks are provided
-in Ott et al. (2020, Sections 2.5 and 2.6) and they 
-can be computed using the function \code{fit_models_RA}.
+Two alternative suggestions for posterior benchmarks are provided
+in Ott et al. (2020, Section 3.4) and its Supplementary Material (Section 2.5) and they 
+can be computed using the functions \code{fit_models_RA} and \code{fit_models_RA_5bm},
+respectively.
 }
 \value{
 A matrix of Hellinger distance estimates between marginal posteriors
@@ -70,7 +71,11 @@ with the rows in the following order:
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
 }
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,
@@ -86,10 +91,10 @@ data(aa)
 # actual standard half-normal and half-Cauchy heterogeneity priors
 fits <- fit_models_RA(df=aa, tau.prior=
                              list(function(t)dhalfnormal(t, scale=1),
-                                  function(t)dhalfcauchy(t, scale=1)))[[1]]
-# benchmark fits under SGC(m_inf), Jeffreys' and SIGC(M_inf) priors
-fits.bm.post <- fits[c(1,5,4)]
-fits.actual <- fits[c(6,7)]
+                                  function(t)dhalfcauchy(t, scale=1)))
+# benchmark fits under HN0 and J (Jeffreys) priors
+fits.bm.post <- fits[c(1,2)]
+fits.actual <- fits[c(3,4)]
 post_RA_fits(fits.actual=fits.actual, fits.bm=fits.bm.post)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

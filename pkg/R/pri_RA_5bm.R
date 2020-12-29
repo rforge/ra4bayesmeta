@@ -1,10 +1,10 @@
 
 # computes a table of Hellinger distances betw. the actual priors for tau
 # in the specified fits fits.actual and the benchmark priors for tau in fits.bm
-pri_RA <- function(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
-                   m_J=NA, M_J=NA, upper.J=3, digits.J=2,
-                   m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
-                   mu.mean=0, mu.sd=4){
+pri_RA_5bm <- function(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
+                       m_J=NA, M_J=NA, upper.J=3, digits.J=2,
+                       m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
+                       mu.mean=0, mu.sd=4){
   # inputs:
   
   # output:

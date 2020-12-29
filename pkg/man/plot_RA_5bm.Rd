@@ -1,14 +1,14 @@
-\name{plot_RA}
-\alias{plot_RA}
+\name{plot_RA_5bm}
+\alias{plot_RA_5bm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Reference analysis plot based on a data frame using 2 benchmarks:
+Reference analysis plot based on a data frame using 5 benchmarks:
 Plot heterogeneity benchmark priors and the
 corresponding marginal posteriors
 %%  ~~function to do ... ~~
 }
 \description{
-Plots the proper half-normal benchmark heterogeneity prior proposed in Ott et al. (2020)
+Plots the four proper benchmark heterogeneity priors proposed in the Supplementary Material of Ott et al. (2020)
 and the corresponding marginal benchmark posteriors for different parameters in the 
 NNHM. Also displays the marginal Jeffreys reference posterior,
 which is induced by an improper reference prior.
@@ -17,12 +17,14 @@ and the corresponding marginal posteriors as well.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-plot_RA(df, tau.prior = list(),
-        type = "pri.tau", improper.prior = NULL, show.sigma.i = FALSE,
-        xlim, ylim, legend = FALSE, 
-        pos.legend = "topright", legend.tau.prior = c(), 
-        xlab = NULL, bty = "o", 
-        scale.hn0 = 1/500, mu.mean = 0, mu.sd = 4)
+plot_RA_5bm(df, tau.prior=list(), type="pri.tau", 
+            improper.prior = NULL, show.sigma.i = FALSE,
+            xlim, ylim,
+            m_J=NA, M_J=NA, upper.J=3, digits.J=2,
+            m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
+            legend=FALSE, pos.legend="topright", legend.tau.prior=c(), 
+            xlab = NULL, bty = "o",
+            mu.mean=0, mu.sd=4)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,6 +36,10 @@ plot_RA(df, tau.prior = list(),
 \item{tau.prior}{
     list (maximum length 5) of prior specifications, which are \emph{either} functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau \emph{or} character strings specifying priors implemented in the \code{bayesmeta} function. See the documentation of the argument \code{tau.prior} of the \code{bayesmeta} function for details.
 }
+%\item{tau.prior}{
+%    list of functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau 
+%    (max. 5 functions).
+%}
 \item{type}{
     specifies if heterogeneity priors or marginal posterior densities for
     a given parameter should be plotted. 
@@ -52,6 +58,48 @@ plot_RA(df, tau.prior = list(),
 }
 \item{ylim}{
     a vector of two real non-negative numbers. Limits of the y-axis.
+}
+\item{m_J}{
+    parameter value \eqn{m=m_J} of the SGC(\eqn{m}) prior,
+    which induces a marignal posterior for the heterogeneity standard deviation tau   close to Jeffreys reference posterior (wrt the Hellinger distance).
+    If set to \code{NA} (the default), this parameter is computed 
+    using the function \code{m_j_sgc} and some other parameters.
+}
+\item{M_J}{
+    parameter value \eqn{M=M_J} of the SIGC(\eqn{M}) prior,
+    which induces a marignal posterior for the heterogeneity standard deviation tau   close to Jeffreys reference posterior (wrt the Hellinger distance).
+    If set to \code{NA} (the default), this parameter is computed 
+    using the function \code{M_j_sigc} and some other parameters.
+}
+\item{upper.J}{
+    upper bound for the parameters \code{M_J} and \code{m_J}. Real number in \eqn{(1,\infty)}. Is required only if \code{M_J=NA} or \code{m_J=NA}.
+}
+\item{digits.J}{
+    specifies the desired precision of the parameter values \eqn{M_J} and \eqn{m_J}, i.e. to how many digits these two values
+   should be determined. Possible values are 1,2,3. Defaults to 2.
+   Is required only if \code{M_J=NA} or \code{m_J=NA}.
+}
+\item{m_inf}{
+    parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior,
+such that the median relative latent model complexity (RLMC) is close to 0.
+  If set to \code{NA} (the default), this parameter is computed 
+    using the function \code{m_inf_sgc}, such that the median RLMC is
+    approximately equal to \code{rlmc0}.
+}
+\item{M_inf}{
+    parameter value \eqn{M=M_{inf}} of the SIGC(\eqn{M}) prior,
+such that the median relative latent model complexity (RLMC) is close to 1.
+  If set to \code{NA} (the default), this parameter is computed 
+    using the function \code{M_inf_sigc}, such that the median RLMC is
+    approximately equal to \code{rlmc1}.
+}
+\item{rlmc0}{
+    RLMC target value for the SGC(\eqn{m_{inf}}) benchmark prior (typically close to 0).
+    Is required only if \code{m_inf=NA}.
+}
+\item{rlmc1}{
+    RLMC target value for the SIGC(\eqn{M_{inf}}) benchmark prior (typically close to 1).
+    Is required only if \code{M_inf=NA}.
 }
 \item{legend}{
     logical. Specifies if a legend should be added to the plot. Defaults to \code{FALSE}.
@@ -75,11 +123,6 @@ plot_RA(df, tau.prior = list(),
 \item{bty}{
     the type of box to be drawn around the legend. The allowed values are "o" (the default) and "n".
 }
-\item{scale.hn0}{
-  scale parameter of the half-normal benchmark prior (usually a small number to 
-  obtain a conservative benchmark which has most of its probability mass close to 0).
-  Defaults to 0.002.
-}
 \item{mu.mean}{
   mean of the normal prior for the effect mu.
 }
@@ -88,11 +131,12 @@ plot_RA(df, tau.prior = list(),
 }
 }
 \details{
-The two heterogeneity benchmark priors used are
-introduced in Ott et al. (2020, Section 3.4)
-and they are denoted by 
-HN0 and J.
-Note that the latter Jeffreys reference prior J
+The five heterogeneity benchmark priors used are
+introduced in the Supplementary Material of Ott et al. (2020, Sections 2.2.1, 2.5 and 2.6, see also Section 3.4 of Ott et al. (2020) for Jeffreys reference prior),
+where they are denoted by 
+SGC(\code{m_inf}), SIGC(\code{M_J}), SGC(\code{m_J}), SIGC(\code{M_inf})
+and Jeffreys.
+Note that the latter Jeffreys reference prior
 is improper, but leads to a proper posterior if
 there are at least two studies in the meta-analysis data set.
 
@@ -106,33 +150,42 @@ operating on model fits of class \code{bayesmeta}.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \references{
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
 Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
 }
-%\section{Warning }{
-%This function may take several minutes to run.
-%}
+\section{Warning }{
+This function may take several minutes to run if the parameter \code{m_J} and/or \code{M_J}
+is not specified,
+especially if the desired precision is \code{digits.J=2} or even \code{digits.J=3}.
+
+A warning message will be displayed if one of the parameters \code{m_inf}, \code{M_J}, \code{m_J} or \code{M_inf}
+has a value larger than 5*10^6, since this may lead to numerical problems
+in the \code{bayesmeta} function
+used for computation of the marginal posteriors.
+}
 \seealso{
-\code{\link{plot_RA_fits}},
-\code{\link{plot_RA_5bm}},
-\code{\link{fit_models_RA}}
+\code{\link{fit_models_RA_5bm}}, \code{\link{plot_RA_fits}}
 }
 \examples{
 # for aurigular acupuncture (AA) data set with two
 # actual half-normal and half-Cauchy heterogeneity priors
 data(aa)
 # prior densities
-plot_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
-                              function(t)dhalfcauchy(t, scale=1)),
-        type="pri.tau", xlim=c(0,2), ylim=c(0,3), legend=TRUE,
-        legend.tau.prior=c("HN(1)", "HC(1)"))
+plot_RA_5bm(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
+                                  function(t)dhalfcauchy(t, scale=1)),
+            type="pri.tau", xlim=c(0,2), ylim=c(0,3), legend=TRUE,
+            legend.tau.prior=c("HN(1)", "HC(1)"))
           
 # marginal posterior for the effect mu
-plot_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
+plot_RA_5bm(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
                                   function(t)dhalfcauchy(t, scale=1)),
-        type="post.mu", xlim=c(-1.5,2), ylim=c(0,3), legend=TRUE,
-        legend.tau.prior=c("HN(1)", "HC(1)"))         
+            type="post.mu", xlim=c(-1.5,2), ylim=c(0,3), legend=TRUE,
+            legend.tau.prior=c("HN(1)", "HC(1)"))         
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

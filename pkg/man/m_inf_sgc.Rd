@@ -7,7 +7,7 @@ relative latent model complexity (RLMC)
 %%  ~~function to do ... ~~
 }
 \description{
-  Computes the parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior,
+Computes the parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior,
 such that the relative latent model complexity (RLMC) with respect
 to the reference threshold is approximately \code{rlmc}.
 The reference threshold is chosen as the (1-\code{alpha})-quantile of the 
@@ -30,7 +30,7 @@ m_inf_sgc(rlmc, alpha=0.5)
 }
 }
 \details{
-See the Supplementary Material of Ott et al. (2020), Section 2.6,
+See the Supplementary Material of Ott et al. (2020), Section 2.3.1,
 for the formulas and explanations.
 Note that the parameter value \eqn{m_{inf}} does not depend
 on the data set considered.
@@ -40,9 +40,9 @@ on the data set considered.
 Parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior. Real number > 1.
 }
 \references{
-Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
-informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
 }
 \seealso{
 \code{\link{M_inf_sigc}}

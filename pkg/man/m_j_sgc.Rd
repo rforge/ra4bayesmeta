@@ -39,16 +39,16 @@ m_j_sgc(df, upper=3, digits=2, mu.mean=0, mu.sd=4)
 }
 }
 \details{
-See Ott et al. (2020, Section 2.7) for details.
+See the Supplementary Material of Ott et al. (2020, Section 2.6) for details.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
 Parameter value \eqn{m=m_J} of the SGC(\eqn{m}) prior. Real number > 1.
 }
 \references{
-Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
-informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
 }
 \section{Warning }{
 This function takes several minutes to run if the desired precision

@@ -23,7 +23,7 @@ plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
              col.actual=c("red","lightpink3","darkgreen","green", 
                           "violetred")[1:length(fits.actual)], 
              col.bm=c("cyan","black","blue","darkgray",
-                      "dogerblue")[1:length(fits.bm)], 
+                      "dodgerblue")[1:length(fits.bm)], 
              lty.actual=rep(2, times=length(col.actual)), 
              lty.bm=rep(1, times=length(col.bm)),
              lwd.actual=rep(2, times=length(col.actual)), 
@@ -114,15 +114,19 @@ plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
 %}
 }
 \details{
-Suggestions for prior and posterior benchmarks are provided
-in Ott et al. (2020, Sections 2.5-2.7).
-These benchmarks can be
-computed using the function \code{fit_models_RA}.
+Two alternative suggestions for posterior benchmarks are provided
+in Ott et al. (2020, Section 3.4) and its Supplementary Material (Section 2.5) and they 
+can be computed using the functions \code{fit_models_RA} and \code{fit_models_RA_5bm},
+respectively.
 }
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
 }
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,
@@ -134,29 +138,25 @@ Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2
 data(aa)
 # compute the model fits
 fits <- fit_models_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=1),
-                                 function(t)dhalfcauchy(t, scale=1)))[[1]]
-# benchmark fits under SGC(m_inf), SIGC(M_J), SGC(m_J) and SIGC(M_inf) priors
-fits.bm.pri <- fits[1:4]
-# benchmark fits under SGC(m_inf), Jeffreys' and SIGC(M_inf) priors
-fits.bm.post <- fits[c(1,5,4)]
-fits.actual <- fits[c(6,7)]
+                                            function(t)dhalfcauchy(t, scale=1)))
+# plot the HN0 benchmark prior (do not show the improper J benchmark)
+fits.bm.pri <- fits[1]
+# benchmark fits under HN0 and J priors
+fits.bm.post <- fits[1:2]
+fits.actual <- fits[3:4]
 
 # prior densities
 plot_RA_fits(fits.actual=fits.actual, fits.bm=fits.bm.pri,
-             type="pri.tau", xlim=c(0,2), ylim=c(0,3), 
+             type="pri.tau", xlim=c(0, 2), ylim=c(0, 3), 
              legend=TRUE,
-             legend.tau.prior=c("HN(1)", "HC(1)", 
-              expression(SGC(m[infinity])), expression(SIGC(M[J])), 
-              expression(SGC(m[J])), 
-              expression(SIGC(M[infinity]))))
+             legend.tau.prior=c("HN(1)", "HC(1)", "HN0"))
           
 # marginal posterior for the effect mu
 plot_RA_fits(fits.actual=fits.actual, fits.bm=fits.bm.post, 
-             type="post.mu", xlim=c(-1.5,2), ylim=c(0,3),
+             type="post.mu", xlim=c(-1.5, 1.5), ylim=c(0, 3),
              legend=TRUE,
              legend.tau.prior=c("HN(1)", "HC(1)",
-              expression(SGC(m[infinity])), "Jeffreys", 
-              expression(SIGC(M[infinity]))))        
+             "HN0", "J"))      
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

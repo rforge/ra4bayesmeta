@@ -1,21 +1,21 @@
-\name{post_RA}
-\alias{post_RA}
+\name{post_RA_3bm}
+\alias{post_RA_3bm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Posterior reference analysis based on a data frame
+Posterior reference analysis based on a data frame using 3 benchmarks
 %%  ~~function to do ... ~~
 }
 \description{
 Computes a table of Hellinger distances between marginal posterior distributions
 for different parameters in the NNHM
 induced by the actual heterogeneity priors specified in \code{tau.prior} and
-posterior benchmarks proposed in Ott et al. (2020).
+posterior benchmarks proposed in the Supplementary Material for Ott et al. (2020).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-post_RA(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
-        m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
-        mu.mean=0, mu.sd=4)
+post_RA_3bm(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
+            m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
+            mu.mean=0, mu.sd=4)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -61,7 +61,7 @@ such that the median relative latent model complexity (RLMC) is close to 1.
 }
 \details{
 The three posterior benchmarks used are
-introduced in Ott et al. (2020, Sections 2.5 and 2.6),
+introduced in the Supplementary Material of Ott et al. (2020, Sections 2.2.1 and 2.5, see also Section 3.4 in Ott at al. (2020) for Jeffreys reference prior),
 where they are denoted by 
 \eqn{po_{m_{inf}}(\Psi)}, \eqn{po_{J}(\Psi)} and \eqn{po_{M_{inf}}(\Psi)}.
 Here, \eqn{\Psi \in \{ \mu, \tau, \theta_1, ..., \theta_k, \theta_{new}  \}}
@@ -116,9 +116,13 @@ with the rows in the following order:
 \item{theta_new, pri_act_n }{ \eqn{\Psi=\theta_{new}} and nth actual prior}
 }
 \references{
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
 }
 \section{Warning }{
 A warning message will be displayed if one of the parameters \code{m_inf} or \code{M_inf}
@@ -128,13 +132,13 @@ used for computation of the marginal posteriors.
 }
 \seealso{
 \code{\link{post_RA_fits}}, 
-\code{\link{pri_RA}}
+\code{\link{pri_RA_5bm}}
 }
 \examples{
 # for aurigular acupuncture (AA) data set with two
 # actual half-normal heterogeneity priors
 data(aa)
-post_RA(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=0.5),
+post_RA_3bm(df=aa, tau.prior=list(function(t)dhalfnormal(t, scale=0.5),
                               function(t)dhalfnormal(t, scale=1)))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

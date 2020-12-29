@@ -28,9 +28,13 @@ pri_RA_fits(fits.actual, fits.bm)
 }
 }
 \details{
-Suggestions for prior benchmarks are provided
-in Ott et al. (2020, Sections 2.5 and 2.7) and they 
-can be computed using the function \code{fit_models_RA}.
+%The methodology for the prior reference analysis is descripbed in the Supplementary Material of
+%Ott et al. (2020), Section 2.6.
+Two alternative suggestions for benchmark priors are provided
+in Ott et al. (2020, Section 3.4) and its Supplementary Material (Sections 2.5 and 2.6).
+These benchmark priors and the corresponding fits 
+can be computed using the functions \code{fit_models_RA} and \code{fit_models_RA_5bm},
+respectively.
 }
 \value{
 A matrix of Hellinger distance estimates between actual and benchmark
@@ -55,24 +59,28 @@ as in that list. Thus, the row names are:
 \item{pri_act_n }{ nth (last) actual prior in \code{tau.prior}}
 }
 \references{
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
 }
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,
-\code{\link{fit_models_RA}},
+\code{\link{fit_models_RA_5bm}},
 \code{\link{post_RA_fits}},
-\code{\link{pri_RA}} 
+\code{\link{pri_RA_5bm}} 
 }
 \examples{
 # for aurigular acupuncture (AA) data set 
 data(aa)
 # compute the model fits
 # two actual half-normal heterogeneity priors
-fits <- fit_models_RA(df=aa, tau.prior=
-                             list(function(t)dhalfnormal(t, scale=0.5),
-                                  function(t)dhalfnormal(t, scale=1)))[[1]]
+fits <- fit_models_RA_5bm(df=aa, tau.prior=
+                                 list(function(t)dhalfnormal(t, scale=0.5),
+                                      function(t)dhalfnormal(t, scale=1)))[[1]]
 # benchmark fits under SGC(m_inf), SIGC(M_J), SGC(m_J) and SIGC(M_inf) priors
 fits.bm.pri <- fits[1:4]
 # actual fits under HN priors

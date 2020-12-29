@@ -1,5 +1,5 @@
 
-importFrom("stats", "integrate")
+importFrom("stats", "integrate", "pnorm", "dnorm", "qnorm")
 importFrom("graphics", "lines", "plot", "points")
 importFrom("bayesmeta", "bayesmeta", "dhalfnormal", "dhalfcauchy")
 
@@ -7,19 +7,25 @@ importFrom("bayesmeta", "bayesmeta", "dhalfnormal", "dhalfcauchy")
 export(sigma_ref)
 export(H)
 export(cal_h_dist)
+export(post_mu_fe)
+
+export(fit_models_RA)
+export(post_RA)
+export(plot_RA)
+
+export(post_RA_fits)
+export(pri_RA_fits)
+export(plot_RA_fits)
+
 export(dsgc)
 export(dsigc)
 export(m_inf_sgc)
 export(M_inf_sigc)
 export(m_j_sgc)
 export(M_j_sigc)
-export(fit_models_RA)
-export(post_RA_fits)
-export(post_RA)
-export(pri_RA_fits)
-export(pri_RA)
-export(plot_RA_fits)
-export(plot_RA)
-
+export(fit_models_RA_5bm)
+export(post_RA_3bm)
+export(plot_RA_5bm)
+export(pri_RA_5bm)
 
 

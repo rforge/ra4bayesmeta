@@ -6,7 +6,7 @@ Density function of the square-root generalized conventional (SGC) benchmark pri
 %%  ~~function to do ... ~~
 }
 \description{
- Density function of the SGC distribution described in Ott et al. (2020).   
+Density function of the SGC distribution described in the Supplementary Material of Ott et al. (2020).   
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -36,7 +36,7 @@ for \eqn{x >= 0}.
 This is the transformation of the density function for
 variance components given in equation (2.15) in Berger & Deely (1988)
 to the standard deviation scale.
-See Ott et al. (2020), Section 2.3.2 for more information.
+See the Supplementary Material of Ott et al. (2020), Section 2.2, for more information.
 
 For meta-analsis data sets, Ott et al. (2020) choose
 \eqn{C=\sigma_{ref}^{-2}},
@@ -54,9 +54,9 @@ Berger, J. O., Deely, J. (1988). A Bayesian approach to ranking and selection of
 related means with alternatives to analysis-of-variance methodology. \emph{Journal of the
 American Statistical Association} \bold{83(402)}, 364--373.
 
-Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
-informative? Reference analysis for
-Bayesian meta-analysis. Manuscript submitted to \emph{Statistics in Medicine}. 2020.
+Ott, M., Plummer, M., Roos, M. Supplementary Material:
+How vague is vague? How informative is informative? Reference analysis for 
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
 }
 \seealso{
 \code{\link{dsigc}}

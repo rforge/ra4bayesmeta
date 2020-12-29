@@ -1,4 +1,7 @@
 
+# functions to compute Hellinger distances between posterior benchmarks
+
+# J and m_J benchmarks
 H_dist_J_mJ <- function(df, mJ, 
                      mu.mean=0, mu.sd=4){
   # inputs:
@@ -29,7 +32,7 @@ H_dist_J_mJ <- function(df, mJ,
 }
 
 
-
+# J and M_J benchmarks
 H_dist_J_MJ <- function(df, MJ, 
                         mu.mean=0, mu.sd=4){
   # inputs:
