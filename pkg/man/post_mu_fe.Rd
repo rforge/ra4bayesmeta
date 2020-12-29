@@ -12,7 +12,7 @@ normal posterior distribution for the overall mean parameter mu in the fixed eff
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-post_me_fe(df, mu.mean = 0, mu.sd = 4)
+post_mu_fe(df, mu.mean = 0, mu.sd = 4)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
