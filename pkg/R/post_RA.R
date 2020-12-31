@@ -74,7 +74,7 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
       
       table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
                        function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x))
-      table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_mu) * H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
+      table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_new) * H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
                                                                 function(x) fits.bm[["fit.j"]]$dposterior(mu = x, predict = TRUE))
     } else {
     for(j in 1:k){
@@ -103,7 +103,7 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
     
     table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
                      function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x, predict = TRUE))
-    table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_j) * H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
+    table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_new) * H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
                                                                    function(x) fits.bm[["fit.j"]]$dposterior(mu = x, predict = TRUE))
     }
   }
