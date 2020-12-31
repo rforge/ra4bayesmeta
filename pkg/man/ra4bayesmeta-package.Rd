@@ -27,7 +27,7 @@ induced by a minimally informative improper reference prior for the heterogeneit
 Two alternative proposals for additional posterior benchmarks are implemented.
 The first, simpler proposal is described in Ott et al. (2020) and uses a benchmark induced by a conservative half-normal heterogeneity prior.
 This benchmark allows us to discriminate between conservative and anti-conservative heterogeneity priors with respect to the reference prior.
-The second, more involved proposal is introduced in the Supplementary Material of Ott et al. (2020) and uses up to four additional benchmarks induced by conservative and anti-conservative proper priors.
+The second, more involved proposal is introduced in the Supplementary Material of Ott et al. (2020) and uses up to four additional benchmarks induced by proper priors.
 These benchmarks allow us to discriminate between strongly conservative, reference affine, and strongly anti-conservative heterogeneity priors.
 All four benchmark priors belong to two closely related parametric families, the 
 so-called "square-root generalized conventional" (SGC) and
@@ -36,8 +36,8 @@ which are derived from prior distributions for variance components
 described in Berger & Deely (1988).
 Note that most of these prior benchmarks also depend on the data set considered.
 
-Functions which implement this second proposal use either 3 (2 proper ones and Jeffreys reference prior) or 5 (4 proper ones and Jeffreys reference prior) benchmark priors in total and have a corresponding suffix \code{_3bm} or \code{_5bm}.
-The corresponding functions without such a suffix implement the first proposal based on 2 benchmark priors (the half-normal and Jeffreys reference prior).
+Functions which implement this second proposal use 3 benchmarks for the posterior reference analysis (Jeffreys reference posterior and two additional benchmarks induced by a highly conservative/anti-conservative heterogeneity prior) and 5 benchmarks for the prior reference analysis (Jeffreys reference prior and 4 proper priors) and have a corresponding suffix \code{_3bm} or \code{_5bm}.
+The corresponding functions without such a suffix implement the first proposal based on 2 heterogeneity benchmark priors (the half-normal and Jeffreys reference prior).
 
 
 %Two additional extreme (in terms of the relative latent model complexity (RLMC)) posterior benchmarks are also considered, which allow to assess if a
