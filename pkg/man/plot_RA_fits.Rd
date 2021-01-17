@@ -115,18 +115,18 @@ plot_RA_fits(fits.actual, fits.bm, type="pri.tau", xlim, ylim,
 }
 \details{
 Two alternative suggestions for posterior benchmarks are provided
-in Ott et al. (2020, Section 3.4) and its Supplementary Material (Section 2.5) and they 
+in Ott et al. (2021, Section 3.4) and its Supplementary Material (Section 2.5) and they 
 can be computed using the functions \code{fit_models_RA} and \code{fit_models_RA_5bm},
 respectively.
 }
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 }
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,

@@ -45,7 +45,7 @@ This area of overlap is given by
 \deqn{AO(\mu(h)) = \Phi(\mu(h)/2 ;\mu(h), 1) + 1 - \Phi(\mu(h)/2 ;0, 1),}
 where \eqn{\Phi(. ;\mu, \sigma^2)} denotes the cumulative distribution function of
 the normal distribution with mean \eqn{\mu} and variance \eqn{\sigma^2}.
-See Ott et al. (2020, Section 3.5) for more information on this area of overlap calibration.
+See Ott et al. (2021, Section 3.5) for more information on this area of overlap calibration.
 %  ~~ If necessary, more details than the description above ~~
 }
 \value{
@@ -58,7 +58,7 @@ Roos, M., Martins, T., Held, L., Rue, H. (2015). Sensitivity analysis for Bayesi
 
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 
 \examples{

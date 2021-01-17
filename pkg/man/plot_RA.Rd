@@ -8,7 +8,7 @@ corresponding marginal posteriors
 %%  ~~function to do ... ~~
 }
 \description{
-Plots the proper half-normal benchmark heterogeneity prior proposed in Ott et al. (2020)
+Plots the proper half-normal benchmark heterogeneity prior proposed in Ott et al. (2021)
 and the corresponding marginal benchmark posteriors for different parameters in the 
 NNHM. Also displays the marginal Jeffreys reference posterior,
 which is induced by an improper reference prior.
@@ -41,7 +41,7 @@ plot_RA(df, tau.prior = list(),
     \code{"post.theta.new"} for the marg. posterior of the predicted effect theta_new in a new study.
 }
 \item{improper.prior}{
-    vector of integers specifying the position of the improper priors in the list \code{tau.prior}
+    vector of integers specifying the positions of the improper priors in the list \code{tau.prior}
     or NULL (the default). Determines which prior densities should not be plotted. Applies only to \code{type = "pri.tau"}.
 }
 \item{show.sigma.i}{
@@ -89,7 +89,7 @@ plot_RA(df, tau.prior = list(),
 }
 \details{
 The two heterogeneity benchmark priors used are
-introduced in Ott et al. (2020, Section 3.4)
+introduced in Ott et al. (2021, Section 3.4)
 and they are denoted by 
 HN0 and J.
 Note that the latter Jeffreys reference prior J
@@ -108,7 +108,7 @@ operating on model fits of class \code{bayesmeta}.
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 %\section{Warning }{
 %This function may take several minutes to run.

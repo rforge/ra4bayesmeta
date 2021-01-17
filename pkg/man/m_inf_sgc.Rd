@@ -30,7 +30,7 @@ m_inf_sgc(rlmc, alpha=0.5)
 }
 }
 \details{
-See the Supplementary Material of Ott et al. (2020), Section 2.3.1,
+See the Supplementary Material of Ott et al. (2021), Section 2.3.1,
 for the formulas and explanations.
 Note that the parameter value \eqn{m_{inf}} does not depend
 on the data set considered.
@@ -42,13 +42,13 @@ Parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior. Real number > 1.
 \references{
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 }
 \seealso{
 \code{\link{M_inf_sigc}}
 }
 \examples{
-# extreme RLMC target value close to 0 used in Ott et al. (2020)
+# extreme RLMC target value close to 0 used in Ott et al. (2021)
 m_inf_sgc(rlmc=0.0001)
 
 # 25\% quantile instead of the median as ref. threshold

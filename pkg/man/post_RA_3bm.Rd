@@ -9,7 +9,7 @@ Posterior reference analysis based on a data frame using 3 benchmarks
 Computes a table of Hellinger distances between marginal posterior distributions
 for different parameters in the NNHM
 induced by the actual heterogeneity priors specified in \code{tau.prior} and
-posterior benchmarks proposed in the Supplementary Material for Ott et al. (2020).
+posterior benchmarks proposed in the Supplementary Material of Ott et al. (2021).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -61,7 +61,7 @@ such that the median relative latent model complexity (RLMC) is close to 1.
 }
 \details{
 The three posterior benchmarks used are
-introduced in the Supplementary Material of Ott et al. (2020, Sections 2.2.1 and 2.5, see also Section 3.4 in Ott at al. (2020) for Jeffreys reference prior),
+introduced in the Supplementary Material of Ott et al. (2021, Sections 2.2.1 and 2.5, see also Section 3.4 in Ott at al. (2021) for Jeffreys reference prior),
 where they are denoted by 
 \eqn{po_{m_{inf}}(\Psi)}, \eqn{po_{J}(\Psi)} and \eqn{po_{M_{inf}}(\Psi)}.
 Here, \eqn{\Psi \in \{ \mu, \tau, \theta_1, ..., \theta_k, \theta_{new}  \}}
@@ -118,11 +118,11 @@ with the rows in the following order:
 \references{
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 \section{Warning }{
 A warning message will be displayed if one of the parameters \code{m_inf} or \code{M_inf}

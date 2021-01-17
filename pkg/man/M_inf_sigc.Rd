@@ -38,7 +38,7 @@ M_inf_sigc(rlmc, df, alpha=0.5, truncation=5*10^6)
 }
 }
 \details{
-See the Supplementary Material of Ott et al. (2020), Section 2.3.2,
+See the Supplementary Material of Ott et al. (2021), Section 2.3.2,
 for the formulas and explanations.
 Note that the parameter value \eqn{M_{inf}} does depend
 on the data set considered.
@@ -50,11 +50,11 @@ Parameter value \eqn{M=M_{inf}} of the SIGC(\eqn{M}) prior. Real number > 1.
 \references{
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 }
 \section{Warning }{
 Occasionally, the formula for \eqn{M_{inf}} given in the Supplementary Material of 
-Ott et al. (2020, Section 2.3.2)
+Ott et al. (2021, Section 2.3.2)
 yields values larger than 5*10^6. This can cause numerical problems in the
 \code{bayesmeta} function.
 Therefore, we truncate the parameter value at the
@@ -64,7 +64,7 @@ empirically determined threshold 5*10^6 by default.
 \code{\link{m_inf_sgc}}
 }
 \examples{
-# extreme RLMC target value close to 1 used in Ott et al. (2020)
+# extreme RLMC target value close to 1 used in Ott et al. (2021)
 # for the aurigular acupuncture (AA) data set
 data(aa)
 M_inf_sigc(df=aa, rlmc=0.9999)

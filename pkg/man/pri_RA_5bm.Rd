@@ -9,7 +9,7 @@ Prior reference analysis based on a data frame using 5 benchmarks
 Computes a table of Hellinger distance estimates between the
 actual heterogeneity prior(s) specified and
 four benchmark heterogeneity priors
-proposed in the Supplementary Material of Ott et al. (2020).
+proposed in the Supplementary Material of Ott et al. (2021).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -82,9 +82,9 @@ such that the median relative latent model complexity (RLMC) is close to 1.
 }
 \details{
 The methodology for a prior reference analysis and the four proper heterogeneity benchmark priors used are
-introduced in the Supplementary Material of Ott et al. (2020, Sections 2.5 and 2.6).
+introduced in the Supplementary Material of Ott et al. (2021, Sections 2.5 and 2.6).
 There, these four benchmark priors are denoted by 
-SGC(\code{m_J}), SIGC(\code{M_J}), SGC(\code{m_inf}) and SIGC(\code{M_inf}).
+SGC(\eqn{m_J}), SIGC(\eqn{M_J}), SGC(\eqn{m_{inf}}) and SIGC(\eqn{M_{inf}}).
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
@@ -119,7 +119,7 @@ as in that list. Thus, the row names are:
 \references{
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 }
 \section{Warning }{
 This function may take several minutes to run if the parameter \code{m_J} and/or \code{M_J}

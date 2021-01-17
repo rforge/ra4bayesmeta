@@ -2,7 +2,7 @@
 \alias{fit_models_RA_5bm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Model fitting for reference analysis:
+Model fitting for reference analysis using 5 benchmarks:
 Posterior inference for benchmark and actual heterogeneity priors
 %%  ~~function to do ... ~~
 }
@@ -93,17 +93,17 @@ such that the median relative latent model complexity (RLMC) is close to 1.
 }
 \details{
 The five heterogeneity benchmark priors used are
-introduced in the Supplementary Material of Ott et al. (2020, Sections 2.2.1, 2.5 and 2.6, see also Section 3.4 of Ott et al. (2020) for Jeffreys reference prior),
+introduced in the Supplementary Material of Ott et al. (2021, Sections 2.2.1, 2.5 and 2.6, see also Section 3.4 of Ott et al. (2021) for Jeffreys reference prior),
 where they are denoted by 
-SGC(\code{m_inf}), SIGC(\code{M_J}), SGC(\code{m_J}), SIGC(\code{M_inf})
+SGC(\eqn{m_{inf}}), SIGC(\eqn{M_J}), SGC(\eqn{m_J}), SIGC(\eqn{M_{inf}})
 and Jeffreys.
 Note that "Jeffreys" refers to Jeffreys reference prior,
 which is improper, but leads to a proper posterior if
 there are at least two studies in the meta-analysis data set.
 
-If the fits induced by the SIGC(\code{M_J}) and SGC(\code{m_J}) benchmarks
+If the fits induced by the SIGC(\eqn{M_J}) and SGC(\eqn{m_J}) benchmarks
 are not needed for the analysis (such as for the posterior reference analysis
-proposed in the Supplementary Material of Ott et al. (2020), see for example Table 8 for illustration),
+proposed in the Supplementary Material of Ott et al. (2021), see for example Table 8 for illustration),
 specifying 
 \code{compute.J.bm=FALSE} may reduce the
 computation time by several minutes.
@@ -140,11 +140,11 @@ for information on the structure of the lists of class \code{bayesmeta}.
 \references{
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 \section{Warning }{
 This function may take several minutes to run if the parameter \code{m_J} and/or \code{M_J}

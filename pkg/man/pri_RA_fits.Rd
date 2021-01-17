@@ -31,7 +31,7 @@ pri_RA_fits(fits.actual, fits.bm)
 %The methodology for the prior reference analysis is descripbed in the Supplementary Material of
 %Ott et al. (2020), Section 2.6.
 Two alternative suggestions for benchmark priors are provided
-in Ott et al. (2020, Section 3.4) and its Supplementary Material (Sections 2.5 and 2.6).
+in Ott et al. (2021, Section 3.4) and its Supplementary Material (Sections 2.5 and 2.6).
 These benchmark priors and the corresponding fits 
 can be computed using the functions \code{fit_models_RA} and \code{fit_models_RA_5bm},
 respectively.
@@ -61,11 +61,11 @@ as in that list. Thus, the row names are:
 \references{
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
-Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
 
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,

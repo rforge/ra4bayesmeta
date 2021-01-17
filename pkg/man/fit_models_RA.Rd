@@ -47,7 +47,7 @@ fit_models_RA(df, tau.prior = list(), scale.hn0 = 1/500,
 }
 \details{
 The two heterogeneity benchmark priors used are
-introduced in Ott et al. (2020, Section 3.4),
+introduced in Ott et al. (2021, Section 3.4),
 where they are denoted by 
 HN0 and J.
 Note that "J" refers to Jeffreys reference prior,
@@ -58,7 +58,7 @@ HN0 is a half-normal prior with scale parameter \code{scale.hn0}.
 Decreasing the scale parameter \code{scale.hn0} of the half-normal benchmarks
 leads to a more conservative (i.e. its mass is more concentrated near 0) HN0 benchmark prior.
 However, \code{scale.hn0} cannot be chosen arbitrarily small
-as too small values lead to numerical problems in the \code{bayesmeta} function
+since too small values lead to numerical problems in the \code{bayesmeta} function
 used to fit the models.
 To verify how conservative the HN0 benchmark is,
 one can compare the marginal posterior for the overall mean parameter mu
@@ -90,7 +90,7 @@ for information on the structure of the lists of class \code{bayesmeta}.
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 \section{Warning }{
 If \code{fit_models_RA} ends with an error or warning,

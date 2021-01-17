@@ -29,9 +29,9 @@ post_mu_fe(df, mu.mean = 0, mu.sd = 4)
 }
 \details{
 For the fixed effects model, the normal posterior for the overall mean parameter mu can be computed analytically (under the common assumption of a normal prior on mu)
-since this is a onjugate Bayesian normal-normal model.
-See for example Ott et al. (2020), Equation (2) for the formula
-(\code{mu.mean} corresponds to \eqn{nu} and \code{mu.sd} corresponds to \eqn{gamma}).
+since this is a conjugate Bayesian normal-normal model.
+See for example Ott et al. (2021), Equation (2) for the formula
+(\code{mu.mean} corresponds to \eqn{\nu} and \code{mu.sd} corresponds to \eqn{\gamma}).
 %This is a conjugate Bayesian normal-normal model.
 
 The default values for \code{mu.mean} and \code{mu.sd}
@@ -46,7 +46,7 @@ A list with two elements: the first element "mean" and the second element "sd", 
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 
 Roever C. Bayesian random-effects meta-analysis using the bayesmeta R package (2020). \emph{Journal of Statistical Software} \bold{93(6)}, 1--51.
 }

@@ -12,11 +12,11 @@ for the marginal posterior distributions
 of different parameters in the NNHM
 induced by the actual heterogeneity priors specified in \code{tau.prior}.
 Also provides the same estimates for the 
-posterior benchmarks proposed in Ott et al. (2020).
+posterior benchmarks proposed in Ott et al. (2021).
 %Hellinger distances between marginal posterior distributions
 %for different parameters in the NNHM
 %induced by the actual heterogeneity priors specified in \code{tau.prior} and
-%posterior benchmarks proposed in Ott et al. (2020).
+%posterior benchmarks proposed in Ott et al. (2021).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -60,7 +60,7 @@ post_RA(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
 }
 \details{
 The two posterior benchmarks used are
-introduced in Ott et al. (2020, Section 3.4),
+introduced in Ott et al. (2021, Section 3.4),
 where they are denoted by 
 \eqn{po_{J}(\Psi)} and \eqn{po_{HN0}(\Psi)}. 
 Here, \eqn{\Psi \in \{ \mu, \tau, \theta_1, ..., \theta_k, \theta_{new}  \}}
@@ -76,7 +76,7 @@ there are at least two studies in the meta-analysis data set.
 It is based on the improper Jeffreys' reference prior,
 which is minimally informative given the data.
 The computation of the informativeness values is described in 
-Ott et al. (2020, Section 3.6).
+Ott et al. (2021, Section 3.6).
 
 The absolute value of the signed informativeness quantifies how close the 
 actual posterior and the reference posterior \eqn{po_{J}} are.
@@ -98,7 +98,7 @@ if \code{show.re = TRUE}, then the matrix has \eqn{(k+3)*(n+2)+1} rows, where
 
 The row names specify the parameter in the NNHM for which the marginal posterior is considered,
 followed by the heterogeneity prior used to compute that posterior.
-HN0, J and FE denote the three benchmark priors introduced in Ott et al. (2020).
+HN0, J and FE denote the three benchmark priors introduced in Ott et al. (2021).
 \code{pri_act_i} denotes the i-th prior in the \code{tau.prior} list.
 
 The 6 columns provide the following estimates:
@@ -112,7 +112,7 @@ The 6 columns provide the following estimates:
 \references{
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
-Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2020.
+Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
 \seealso{
 \code{\link{post_RA_fits}}, 
