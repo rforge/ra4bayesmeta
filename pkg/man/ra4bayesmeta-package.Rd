@@ -80,9 +80,9 @@ Type: Package
 
 Title: Reference analysis for Bayesian meta-analysis
 
-Version: 1.0-1
+Version: 1.0-2
 
-Date: 2021-01-17
+Date: 2021-02-01
 
 Author: Manuela Ott [aut, cre], Malgorzata Roos [aut] 
 

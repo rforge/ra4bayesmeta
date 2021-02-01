@@ -7,7 +7,7 @@ Hellinger distance between two probability densities
 }
 \description{
     Computes the Hellinger distance between the
-    two probability density functions specfied.
+    two probability density functions specified.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 } 
 \usage{
