@@ -29,15 +29,15 @@ H_fits(fit1, fit2, parameter = "mu", individual = NA,
 %%     ~~Describe \code{x} here~~
 }
 \item{parameter}{
-  parameter for which the the marginal posterior densities should be compared. Possible values are "mu", "tau", "theta_new" and "theta" ("theta"" refers to the random effects and is used in combination  with the individual argment)
+  parameter for which the the marginal posterior densities should be compared. Possible values are \code{"mu", "tau", "theta_new"} and \code{"theta"} (\code{"theta"} refers to the random effects and is used in combination  with the individual argment).
 %%     ~~Describe \code{x} here~~
 }
 \item{individual}{
-  integer <= k, where k is the number of studies in the meta-analysis data set. Specifies which random effect parameter to consider (according to the order of the studies in the data set). Is used only if \code{parameter = "theta"}.
+  integer \eqn{<= k}, where \eqn{k} is the number of studies in the meta-analysis data set. Specifies which random effect parameter to consider (according to the order of the studies in the data set). Is used only if \code{parameter = "theta"}.
 %%     ~~Describe \code{x} here~~
 }
 \item{method}{
-  method for Hellinger distance computation. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral".
+    method for Hellinger distance computation. Either \code{"integral"} for integral-based computation or \code{"moment"} for approximate moment-based calculation using a normal approximation. Defaults to \code{"integral"}.
 %%     ~~Describe \code{x} here~~
 }
 }

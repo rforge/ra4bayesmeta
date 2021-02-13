@@ -29,7 +29,7 @@ post_RA_fits(fits.actual, fits.bm,
     To be used as benchmarks.
 }
 \item{H.dist.method}{
-    method for computation of Hellinger distances between marginal posterior densities. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral". 
+    method for computation of Hellinger distances between marginal posterior densities. Either \code{"integral"} for integral-based computation or \code{"moment"} for approximate moment-based calculation using a normal approximation. Defaults to \code{"integral"}. 
 }
 }
 \details{

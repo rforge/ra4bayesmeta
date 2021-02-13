@@ -41,7 +41,7 @@ Thus, this moment-based formula can also be applied to non-normal densities to o
 This approximation relies on moment-matching, i.e. the non-normal densities are approximated by normal densities with the same means and standard deviations.
 See Roos et al. (2020), Section 3.3, for the formula and for additional information.
 
-Note that the Hellinger distance is invariant with respect to one-to-one transformations of both densities. For the between-study standard deviation tau, the density of log(tau) can be approximated by a normal density.
+Note that the Hellinger distance is invariant with respect to one-to-one transformations of both densities. For the between-study standard deviation \eqn{\tau}, the density of \eqn{log(\tau)} can be approximated by a normal density.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{

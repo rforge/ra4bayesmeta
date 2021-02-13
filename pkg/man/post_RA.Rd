@@ -40,16 +40,16 @@ post_RA(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
 %    list of functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau.
 %}
 \item{show.re}{
-    logical. If TRUE, the estimates for the random effect parameters \eqn{\theta_i} are also shown. Defaults to FALSE.
+    logical. If \code{TRUE}, the estimates for the random effect parameters \eqn{\theta_i} are also shown. Defaults to \code{FALSE}.
 }
 \item{estimate}{
-    type of posterior point estimate. Either "median" for the posterior median or "mean" for the posterior mean. Defaults to "median".
+        type of posterior point estimate. Either \code{"median"} for the posterior median or \code{"mean"} for the posterior mean. Defaults to \code{"median"}.
 }
 \item{ci.method}{
-    method for computation of 95\% credible intervals (CrIs). Either "central" for equal-tailed CrIs or "shortest" for shortest CrIs. Defaults to "central".
+    method for computation of 95\% credible intervals (CrIs). Either \code{"central"} for equal-tailed CrIs or \code{"shortest"} for shortest CrIs. Defaults to \code{"central"}.
 }
 \item{H.dist.method}{
-    method for computation of Hellinger distances between marginal posterior densities. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral". 
+    method for computation of Hellinger distances between marginal posterior densities. Either \code{"integral"} for integral-based computation or \code{"moment"} for approximate moment-based calculation using a normal approximation. Defaults to \code{"integral"}. 
 }
 \item{scale.hn0}{
   scale parameter of the half-normal benchmark prior (usually a small number to 

@@ -32,7 +32,7 @@ post_RA_3bm(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
 %    list of functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau.
 %}
 \item{H.dist.method}{
-    method for computation of Hellinger distances between marginal posterior densities. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral".
+    method for computation of Hellinger distances between marginal posterior densities. Either \code{"integral"} for integral-based computation or \code{"moment"} for approximate moment-based calculation using a normal approximation. Defaults to \code{"integral"}.
 }
 \item{m_inf}{
     parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior,
