@@ -6,6 +6,8 @@ importFrom("bayesmeta", "bayesmeta", "dhalfnormal", "dhalfcauchy")
 
 export(sigma_ref)
 export(H)
+export(H_normal)
+export(H_fits)
 export(cal_h_dist)
 export(post_mu_fe)
 

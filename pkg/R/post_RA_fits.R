@@ -1,5 +1,6 @@
 
-post_RA_fits <- function(fits.actual, fits.bm){
+post_RA_fits <- function(fits.actual, fits.bm, 
+                         H.dist.method = "integral"){
   # inputs:
   # fits.actual: a list of bayesmeta fits under actual priors
   # fits.bm: a list of bayesmeta fits under benchmark priors, 
@@ -25,20 +26,21 @@ post_RA_fits <- function(fits.actual, fits.bm){
     # ii <- (i -1)*(k+3)
     for(j in 1:n.bm){
       ii <- 0
-      tab.H[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(mu=x), 
-                         function(x) fits.bm[[j]]$dposterior(mu=x))
+      tab.H[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                              parameter = "mu", method = H.dist.method)
       
       ii <- 1*n.act
-      tab.H[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(tau=x), 
-                         function(x) fits.bm[[j]]$dposterior(tau=x), lower=0)
+      tab.H[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                              parameter = "tau", method = H.dist.method)
       for(l in 2:(k+1)){
         ii <- l*n.act
-        tab.H[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(theta=x, individual=l-1),
-                           function(x) fits.bm[[j]]$dposterior(theta=x, individual=l-1))
+        tab.H[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                                parameter = "theta", individual=l-1,
+                                method = H.dist.method)
       }
       ii <- (k+2)*n.act
-      tab.H[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(mu=x, predict=TRUE), 
-                         function(x) fits.bm[[j]]$dposterior(mu=x, predict=TRUE))
+      tab.H[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                              parameter = "theta_new", method = H.dist.method)
     }
   }
   

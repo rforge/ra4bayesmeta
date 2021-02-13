@@ -14,6 +14,7 @@ posterior benchmarks proposed in the Supplementary Material of Ott et al. (2021)
 }
 \usage{
 post_RA_3bm(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
+            H.dist.method = "integral",
             m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
             mu.mean=0, mu.sd=4)
 }
@@ -30,6 +31,9 @@ post_RA_3bm(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
 %\item{tau.prior}{
 %    list of functions returning the probability densities of the actual priors of interest for the heterogeneity parameter tau.
 %}
+\item{H.dist.method}{
+    method for computation of Hellinger distances between marginal posterior densities. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral".
+}
 \item{m_inf}{
     parameter value \eqn{m=m_{inf}} of the SGC(\eqn{m}) prior,
 such that the median relative latent model complexity (RLMC) is close to 0.
@@ -73,6 +77,9 @@ Note that Jeffreys' reference posterior \eqn{po_{J}} is proper if
 there are at least two studies in the meta-analysis data set.
 It is based on the improper Jeffreys' reference prior,
 which is minimally informative given the data.
+
+If integral-based computation (\code{H.dist.method = "integral"}) of Hellinger distances is selected (the default), numerical integration is applied to obtain the Hellinger distance between the two marginal posterior densities (by using the function \code{H}).
+If moment-based computation (\code{H.dist.method = "moment"}) is selected, the marginal densities are first approximated by normal densities with the same means and standard deviations and then the Hellinger distance between these normal densities can be obtained by an analytical formula (implemented in the function \code{H_normal}).
 
 The default values for \code{mu.mean} and \code{mu.sd}
 are suitable for effects mu on the log odds (ratio) scale.
@@ -124,11 +131,15 @@ Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
 Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
 }
-\section{Warning }{
+\section{Warnings }{
 A warning message will be displayed if one of the parameters \code{m_inf} or \code{M_inf}
 has a value larger than 5*10^6, since this may lead to numerical problems
 in the \code{bayesmeta} function
 used for computation of the marginal posteriors.
+
+If the integral-based method is used to compute Hellinger distances (\code{H.dist.method = "integral"}),
+numerical problems may occur in some cases, which may lead to implausible outputs.
+Therefore, we generally recommend to double-check the results of the integral-based method using the moment-based method (\code{H.dist.method = "moment"}) - especially if the former results are implausibe. If large differences between the two methods are observed, we recommend to rely on the moment-based method unless a normal approximation of the involved densities is inappropriate.
 }
 \seealso{
 \code{\link{post_RA_fits}}, 

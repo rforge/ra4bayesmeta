@@ -21,7 +21,9 @@ posterior benchmarks proposed in Ott et al. (2021).
 }
 \usage{
 post_RA(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)), 
-        show.re = FALSE, estimate = "median", ci.method = "central", 
+        show.re = FALSE, 
+        estimate = "median", ci.method = "central", 
+        H.dist.method = "integral",
         scale.hn0 = 1/500, mu.mean = 0, mu.sd = 4)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -45,6 +47,9 @@ post_RA(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
 }
 \item{ci.method}{
     method for computation of 95\% credible intervals (CrIs). Either "central" for equal-tailed CrIs or "shortest" for shortest CrIs. Defaults to "central".
+}
+\item{H.dist.method}{
+    method for computation of Hellinger distances between marginal posterior densities. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral". 
 }
 \item{scale.hn0}{
   scale parameter of the half-normal benchmark prior (usually a small number to 
@@ -83,6 +88,9 @@ actual posterior and the reference posterior \eqn{po_{J}} are.
 If the signed informativeness is negative, then the actual prior is conservative  with respect to Jeffreys reference prior J (that is puts more weight on smaller values for \eqn{\tau} than J).
 If the signed informativeness is positive, then the actual prior is anti-conservative  with respect to Jeffreys reference prior J (that is puts more weight on larger values for \eqn{\tau} than J).
 
+If integral-based computation (\code{H.dist.method = "integral"}) of Hellinger distances is selected (the default), numerical integration is applied to obtain the Hellinger distance between the two marginal posterior densities (by using the function \code{H}).
+If moment-based computation (\code{H.dist.method = "moment"}) is selected, the marginal densities are first approximated by normal densities with the same means and standard deviations and then the Hellinger distance between these normal densities can be obtained by an analytical formula (implemented in the function \code{H_normal}).
+
 The default values for \code{mu.mean} and \code{mu.sd}
 are suitable for effects mu on the log odds (ratio) scale.
 %%  ~~ If necessary, more details than the description above ~~
@@ -113,6 +121,11 @@ The 6 columns provide the following estimates:
 Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 informative? Reference analysis for
 Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 2021.
+}
+\section{Warning }{
+If the integral-based method is used to compute Hellinger distances (\code{H.dist.method = "integral"}),
+numerical problems may occur in some cases, which may lead to implausible outputs.
+Therefore, we generally recommend to double-check the results of the integral-based method using the moment-based method (\code{H.dist.method = "moment"}) - especially if the former results are implausibe. If large differences between the two methods are observed, we recommend to rely on the moment-based method unless a normal approximation of the involved densities is inappropriate.
 }
 \seealso{
 \code{\link{post_RA_fits}}, 

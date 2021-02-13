@@ -14,7 +14,8 @@ All fits should be based on the same data set.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-post_RA_fits(fits.actual, fits.bm)
+post_RA_fits(fits.actual, fits.bm, 
+             H.dist.method = "integral")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,12 +28,18 @@ post_RA_fits(fits.actual, fits.bm)
     the \code{bayesmeta} function in the package bayesmeta. 
     To be used as benchmarks.
 }
+\item{H.dist.method}{
+    method for computation of Hellinger distances between marginal posterior densities. Either "integral" for integral-based computation or "moment" for approximate moment-based calculation using a normal approximation. Defaults to "integral". 
+}
 }
 \details{
 Two alternative suggestions for posterior benchmarks are provided
 in Ott et al. (2021, Section 3.4) and its Supplementary Material (Section 2.5) and they 
 can be computed using the functions \code{fit_models_RA} and \code{fit_models_RA_5bm},
 respectively.
+
+If integral-based computation (\code{H.dist.method = "integral"}) of Hellinger distances is selected (the default), numerical integration is applied to obtain the Hellinger distance between the two marginal posterior densities (by using the function \code{H}).
+If moment-based computation (\code{H.dist.method = "moment"}) is selected, the marginal densities are first approximated by normal densities with the same means and standard deviations and then the Hellinger distance between these normal densities can be obtained by an analytical formula (implemented in the function \code{H_normal}).
 }
 \value{
 A matrix of Hellinger distance estimates between marginal posteriors
@@ -76,6 +83,11 @@ Bayesian meta-analysis. Manuscript revised for \emph{Statistics in Medicine}. 20
 Ott, M., Plummer, M., Roos, M. Supplementary Material:
 How vague is vague? How informative is informative? Reference analysis for 
 Bayesian meta-analysis. Revised for \emph{Statistics in Medicine}. 2021.
+}
+\section{Warning }{
+If the integral-based method is used to compute Hellinger distances (\code{H.dist.method = "integral"}),
+numerical problems may occur in some cases, which may lead to implausible outputs.
+Therefore, we generally recommend to double-check the results of the integral-based method using the moment-based method (\code{H.dist.method = "moment"}) - especially if the former results are implausibe. If large differences between the two methods are observed, we recommend to rely on the moment-based method unless a normal approximation of the involved densities is inappropriate.
 }
 \seealso{
 \code{\link[bayesmeta]{bayesmeta}} in the package bayesmeta,

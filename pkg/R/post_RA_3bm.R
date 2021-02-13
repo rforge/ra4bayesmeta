@@ -1,7 +1,8 @@
 
 post_RA_3bm <- function(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
-                       m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
-                       mu.mean=0, mu.sd=4){
+                        H.dist.method = "integral",
+                        m_inf=NA, M_inf=NA, rlmc0=0.0001, rlmc1=0.9999,
+                        mu.mean=0, mu.sd=4){
   
   if(is.na(m_inf))
     m_inf <- m_inf_sgc(rlmc=rlmc0)
@@ -45,21 +46,23 @@ post_RA_3bm <- function(df, tau.prior=list(function(x) dhalfnormal(x, scale=1)),
     # ii <- (i -1)*(k+3)
       for(j in 1:n.bm){
         ii <- 0
-        table[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(mu=x), 
-                           function(x) fits.bm[[j]]$dposterior(mu=x))
+        table[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                                parameter = "mu", method = H.dist.method)
         
         ii <- 1*n.act
-        table[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(tau=x), 
-                           function(x) fits.bm[[j]]$dposterior(tau=x), lower=0)
+        table[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                                parameter = "tau", method = H.dist.method)
+        
         for(l in 2:(k+1)){
           ii <- l*n.act
-          table[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(theta=x, individual=l-1),
-                              function(x) fits.bm[[j]]$dposterior(theta=x, individual=l-1))
+          table[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                                  parameter = "theta", individual=l-1,
+                                  method = H.dist.method)
         }
         ii <- (k+2)*n.act
-        table[ii+i,j] <- H(function(x) fits.actual[[i]]$dposterior(mu=x, predict=TRUE), 
-                             function(x) fits.bm[[j]]$dposterior(mu=x, predict=TRUE))
-    }
+        table[ii+i,j] <- H_fits(fits.actual[[i]], fits.bm[[j]],
+                                parameter = "theta_new", method = H.dist.method)
+     }
     }
   
   colnames(table) <- c("H(po_{m_inf}, po_act)", "H(po_J, po_act)",

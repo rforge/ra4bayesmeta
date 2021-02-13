@@ -7,7 +7,8 @@ Hellinger distance between two probability densities
 }
 \description{
     Computes the Hellinger distance between the
-    two probability density functions specified.
+    two probability density functions specified
+    using numerical integration.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 } 
 \usage{
@@ -45,6 +46,9 @@ Roos, M., Martins, T., Held, L., Rue, H. (2015). Sensitivity analysis for Bayesi
 %Ott, M., Plummer, M., Roos, M. How vague is vague? How informative is
 %informative? Reference analysis for
 %Bayesian meta-analysis. Manuscript in preparation. 2019.
+}
+\seealso{
+\code{\link{H_normal}}
 }
 \examples{
 H(dens1=function(x) dhalfnormal(x, scale=0.5), 

@@ -2,8 +2,10 @@
 # (the random effects theta_i are included if show.re=TRUE)
 
 post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)), 
-                        show.re = FALSE, estimate = "median", ci.method = "central", 
-                        scale.hn0 = 1/500, mu.mean = 0, mu.sd = 4) {
+                    show.re = FALSE, 
+                    estimate = "median", ci.method = "central", 
+                    H.dist.method = "integral",
+                    scale.hn0 = 1/500, mu.mean = 0, mu.sd = 4) {
   
   fits <- fit_models_RA(df = df, tau.prior = tau.prior, 
                         scale.hn0 = scale.hn0,
@@ -20,12 +22,12 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
     table <- matrix(nrow = (3 + k) * n.act + 1, ncol = 4 + n.bm)
   
   # H distances betw. po_HN0 and po_J benchmarks to compute signed informativeness
-  H_dist_post_bms_mu <- H(function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x), 
-                          function(x) fits.bm[["fit.j"]]$dposterior(mu = x))
-  H_dist_post_bms_tau <- H(function(x) fits.bm[["fit.hn0"]]$dposterior(tau = x), 
-                           function(x) fits.bm[["fit.j"]]$dposterior(tau = x), lower=0)
-  H_dist_post_bms_theta_new <- H(function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x, predict = TRUE), 
-                                 function(x) fits.bm[["fit.j"]]$dposterior(mu = x, predict = TRUE))
+  H_dist_post_bms_mu <- H_fits(fits.bm[["fit.hn0"]], fits.bm[["fit.j"]], 
+                               parameter = "mu", method = H.dist.method)
+  H_dist_post_bms_tau <- H_fits(fits.bm[["fit.hn0"]], fits.bm[["fit.j"]], 
+                                parameter = "tau", method = H.dist.method)
+  H_dist_post_bms_theta_new <- H_fits(fits.bm[["fit.hn0"]], fits.bm[["fit.j"]], 
+                                      parameter = "theta_new", method = H.dist.method)
   
   # compute mean and sd for the FE benchmark
   mean.fe <- post_mu_fe(df = df,  mu.mean = mu.mean, mu.sd = mu.sd)$"mean"
@@ -38,46 +40,53 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
   table[1,3] <- qnorm(p=0.975, mean = mean.fe, sd = sd.fe)
   
   j <- 1
-  table[1, 4+j] <- H(function(x) dnorm(x, mean = mean.fe, sd = sd.fe), 
-                     function(x) fits.bm[[j]]$dposterior(mu = x))
+  if(H.dist.method == "integral")
+    table[1, 4+j] <- H(function(x) dnorm(x, mean = mean.fe, sd = sd.fe),
+                       function(x) fits.bm[[j]]$dposterior(mu = x))
+  if(H.dist.method == "moment")
+    table[1, 4+j] <- H_normal(mean1= mean.fe, sd1 = sd.fe,
+                              mean2 = fits.bm[[j]]$summary["mean", "mu"],
+                              sd2 = fits.bm[[j]]$summary["sd", "mu"])
   j <- 2
-  table[1, 4+j] <- sign(table[1, 5] - H_dist_post_bms_mu) * H(function(x) dnorm(x, mean = mean.fe, sd = sd.fe), 
-                                                              function(x) fits.bm[[j]]$dposterior(mu = x))
-  
+  if(H.dist.method == "integral")
+    table[1, 4+j] <- sign(table[1, 5] - H_dist_post_bms_mu) * H(function(x) dnorm(x, mean = mean.fe, sd = sd.fe),
+                                                                function(x) fits.bm[[j]]$dposterior(mu = x))
+  if(H.dist.method == "moment")
+    table[1, 4+j] <- sign(table[1, 5] - H_dist_post_bms_mu) * H_normal(mean1= mean.fe, sd1 = sd.fe,
+                                                                       mean2 = fits.bm[[j]]$summary["mean", "mu"],
+                                                                       sd2 = fits.bm[[j]]$summary["sd", "mu"])
+
   for (i in 1:n.act) {
     m <- i + 1
     table[m,1] <- fits.actual[[i]]$summary[estimate, "mu"]
     table[m,2] <- fits.actual[[i]]$post.interval(mu.level=0.95, method=ci.method)[1]
     table[m,3] <- fits.actual[[i]]$post.interval(mu.level=0.95, method=ci.method)[2]
     
-    table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(mu = x), 
-                     function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x))
-    table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_mu) * H(function(x) fits.actual[[i]]$dposterior(mu = x), 
-                                                              function(x) fits.bm[["fit.j"]]$dposterior(mu = x))
+    table[m, 5] <- H_fits(fits.actual[[i]], fits.bm[["fit.hn0"]], 
+                          parameter = "mu", method = H.dist.method)
+    table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_mu) * H_fits(fits.actual[[i]], fits.bm[["fit.j"]],
+      parameter = "mu", method = H.dist.method)
     
     m <- n.act + i + 1  
     table[m,1] <- fits.actual[[i]]$summary[estimate, "tau"]
     table[m,2] <- fits.actual[[i]]$post.interval(tau.level=0.95, method=ci.method)[1]
     table[m,3] <- fits.actual[[i]]$post.interval(tau.level=0.95, method=ci.method)[2]
     
-    table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(tau = x), 
-                     function(x) fits.bm[["fit.hn0"]]$dposterior(tau = x), 
-                     lower = 0)
-    table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_tau) * H(function(x) fits.actual[[i]]$dposterior(tau = x), 
-                                                               function(x) fits.bm[["fit.j"]]$dposterior(tau = x), 
-                                                               lower = 0)
+    table[m, 5] <- H_fits(fits.actual[[i]], fits.bm[["fit.hn0"]], 
+                          parameter = "tau", method = H.dist.method)
+    table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_tau) * H_fits(fits.actual[[i]], fits.bm[["fit.j"]], 
+                                                                    parameter = "tau", method = H.dist.method)
     if(show.re == FALSE){
       m <- 2*n.act + i + 1
       table[m,1] <- fits.actual[[i]]$summary[estimate, "theta"]
       table[m,2] <- fits.actual[[i]]$post.interval(theta.level=0.95, method=ci.method, predict=TRUE)[1]
       table[m,3] <- fits.actual[[i]]$post.interval(theta.level=0.95, method=ci.method, predict=TRUE)[2]
       
-      
-      table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE),
-                       function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x, predict = TRUE))
-      
-      table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_new) * H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
-                                                                       function(x) fits.bm[["fit.j"]]$dposterior(mu = x, predict = TRUE))
+      table[m, 5] <- H_fits(fits.actual[[i]], fits.bm[["fit.hn0"]],
+                            parameter = "theta_new", method = H.dist.method)
+      table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_new) * H_fits(fits.actual[[i]], fits.bm[["fit.j"]],
+                                                                            parameter = "theta_new",
+                                                                            method = H.dist.method)
     } else {
       for(j in 1:k){
         m <- 2*n.act + 1 + (j-1)*n.act + i
@@ -85,17 +94,18 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
         table[m,2] <- fits[[i]]$post.interval(theta.level=0.95, individual=j, method= ci.method)[1]
         table[m,3] <- fits[[i]]$post.interval(theta.level=0.95, individual=j, method= ci.method)[2]
         
-        H_dist_post_bms_theta_j <- H(function(x) fits.bm[["fit.hn0"]]$dposterior(theta = x, 
-                                                                                 individual = j), 
-                                     function(x) fits.bm[["fit.j"]]$dposterior(theta = x, individual = j))
+        H_dist_post_bms_theta_j <- H_fits(fits.bm[["fit.hn0"]], fits.bm[["fit.j"]],
+                                          parameter = "theta", individual = j, 
+                                          method = H.dist.method)
         
-        table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(theta = x, 
-                                                                 individual = j), 
-                         function(x) fits.bm[["fit.hn0"]]$dposterior(theta = x, individual = j))
-        table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_j) * H(function(x) fits.actual[[i]]$dposterior(theta = x, 
-                                                                                                               individual = j), 
-                                                                       function(x) fits.bm[["fit.j"]]$dposterior(theta = x, individual = j))
-        
+        table[m, 5] <- H_fits(fits.actual[[i]], fits.bm[["fit.hn0"]],
+                              parameter = "theta", individual = j,
+                              method = H.dist.method)
+        table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_j) * H_fits(fits.actual[[i]],
+                                                                            fits.bm[["fit.j"]],
+                                                                            parameter = "theta", individual = j,
+                                                                            method = H.dist.method)
+
       }
       
       m <- (k+2)*n.act + 1 + i
@@ -103,30 +113,31 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
       table[m,2] <- fits.actual[[i]]$post.interval(theta.level=0.95, method=ci.method, predict=TRUE)[1]
       table[m,3] <- fits.actual[[i]]$post.interval(theta.level=0.95, method=ci.method, predict=TRUE)[2]
       
-      table[m, 5] <- H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
-                       function(x) fits.bm[["fit.hn0"]]$dposterior(mu = x, predict = TRUE))
-      table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_new) * H(function(x) fits.actual[[i]]$dposterior(mu = x, predict = TRUE), 
-                                                                       function(x) fits.bm[["fit.j"]]$dposterior(mu = x, predict = TRUE))
+      table[m, 5] <- H_fits(fits.actual[[i]], fits.bm[["fit.hn0"]],
+                            parameter = "theta_new", method = H.dist.method)
+      table[m, 6] <- sign(table[m, 5] - H_dist_post_bms_theta_new) * H_fits(fits.actual[[i]], fits.bm[["fit.j"]],
+                                                                            parameter = "theta_new",
+                                                                            method = H.dist.method)
     }
   }
   
   # add length of credible intervals
   table[ ,4] <- table[ ,3] - table[ ,2]
   
-  # set H distances under the same benchmarks to exactly 0
-  pos.j <- n.act
-  pos.hn0 <- 1
-  if(show.re == FALSE)
-    for(i in 1:3){
-      table[n.act*(i-1) + pos.j + 1, 6] <- 0
-      table[n.act*(i-1) + pos.hn0 + 1, 5] <- 0
-    }
-  else {
-    for(i in 1:(k+3)){
-      table[n.act*(i-1) + pos.j + 1, 6] <- 0
-      table[n.act*(i-1) + pos.hn0 + 1, 5] <- 0
-    }
-  }
+  # set H distances between twice the same posterior under HN0 to exactly 0
+  # pos.j <- n.act
+  # pos.hn0 <- 1
+  # if(show.re == FALSE)
+  #   for(i in 1:3){
+  #     # table[n.act*(i-1) + pos.j + 1, 6] <- 0
+  #     table[n.act*(i-1) + pos.hn0 + 1, 5] <- 0
+  #   }
+  # else {
+  #   for(i in 1:(k+3)){
+  #     # table[n.act*(i-1) + pos.j + 1, 6] <- 0
+  #     table[n.act*(i-1) + pos.hn0 + 1, 5] <- 0
+  #   }
+  # }
   
   colnames(table) <- c("estimate", "CrI_low", "CrI_up", "length_CrI",
                        "H(po_HN0, po_act)", "signed_inf")
@@ -165,7 +176,7 @@ post_RA <- function(df, tau.prior = list(function(x) dhalfnormal(x, scale = 1)),
     rownames <- c(rownames.mu, rownames.tau,
                   rownames.theta.new)
   else
-    rownames <- c(rownames.mu, rownames.tau, rownames.theta.i, 
+    rownames <- c(rownames.mu, rownames.tau, rownames.theta.i,
                   rownames.theta.new)
   
   row.names(table) <- rownames
